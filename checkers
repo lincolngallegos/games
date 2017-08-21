@@ -1,0 +1,5382 @@
+<html lang="en">
+   <head>
+      <title>Checkers V5</title>
+	  
+	  <script type = "text/javascript" 
+          src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+		  src="https://code.jquery.com/jquery-1.10.2.js">
+		  
+		  </script>
+      
+	  
+	  <style type = "text/css" language="css">
+		tr{
+			height:80px;
+
+		}
+		td{
+			width:80px; !important
+			height:80px; !important
+		}
+		.row1 td:nth-child(odd) {
+			background: black;
+		}
+		.row2 td:nth-child(even) {
+			background: black;
+		}
+		.row3 td:nth-child(odd) {
+			background: black;
+		}
+		.row4 td:nth-child(even) {
+			background: black;
+		}
+		.row5 td:nth-child(odd) {
+			background: black;
+		}
+		.row6 td:nth-child(even) {
+			background: black;
+		}
+		.row7 td:nth-child(odd) {
+			background: black;
+		}
+		.row8 td:nth-child(even) {
+			background: black;
+		}
+		
+		img{
+			cursor:pointer;
+		}
+		
+		
+		
+		
+	  </style>
+
+	</head>
+
+	<body>
+	<div style="display:none;">
+	<h1 id="menu">Checkers</h1>
+	  <button style="cursor:pointer;" id="play"> 
+		Play Game!
+	  </button>
+	  
+	  <br>
+	  
+	  <div id="insertName" style="display:none;">
+	  <h2>Insert your name</h2>
+			Player 1: <input type="text" id="p1" placeholder="name" maxlength="10" value=""></input>
+			<br>
+			Player 2: <input type="text" id="p2" placeholder="name" maxlength="10" value=""></input>
+			<br>
+			<input type="submit" id="submit" onclick="insert();"></input>
+	  </div>
+
+	  
+	  <div id="displayName" style="margin-left:auto; margin-right:auto; max-width:35%;" align="center">
+			<h3 id="displayName1" style="margin-left:auto; margin-right:auto; float:left;" ></h3>
+			<h3 id="displayName2" style="margin-left:auto; margin-right:auto; float:right;" ></h3>
+	  </div>
+</div>
+	
+	<table id="board"  style="width:40%; height:200px;" border="5" align="center" >
+		<tr class="row1">
+		<td id="pos1" onClick="toggle1" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="red1" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+
+		</td>
+		<td id="pos2"> 
+		
+		</td>
+		<td id="pos3" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+			<img id="red2" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos4"></td>
+		<td id="pos5" ondrop="drop(event)" ondragover="allowDrop(event)">
+		
+			<img id="red3" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos6"></td>
+		<td id="pos7" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+			<img id="red4" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos8"></td>
+		</tr>
+		<tr class="row2">
+		<td id="pos9" ></td>
+		<td id="pos10" class="test" ondrop="drop(event)" ondragover="allowDrop(event)"> 
+	
+			<img id="red5" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+			
+			</td>
+		<td id="pos11" ></td>
+		<td id="pos12" ondrop="drop(event)" ondragover="allowDrop(event)"> 
+
+			<img id="red6" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+			
+			</td>
+		<td id="pos13"></td>
+		<td id="pos14" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="red7" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+			
+			</td>
+		<td id="pos15"></td>
+		<td id="pos16" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+
+			<img id="red8" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+			
+			</td>
+		</tr>
+		<tr class="row3">
+		<td id="pos17" ondrop="drop(event)"  ondragover="allowDrop(event)">
+
+			<img id="red9" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos18"></td>
+		<td id="pos19" ondrop="drop(event)" ondragover="allowDrop(event)">
+	
+			<img id="red10" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos20"></td>
+		<td id="pos21" ondrop="drop(event)"  ondragover="allowDrop(event)">
+		
+			<img id="red11" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos22"></td>
+		<td id="pos23"  ondrop="drop(event)" ondragover="allowDrop(event)">
+		
+			<img id="red12" class="" align="center" alt="Red" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenRed.png" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos24"></td>
+		</tr>
+		<tr class="row4">
+		<td id="pos25"></td>
+		<td id="pos26" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos27"></td>
+		<td id="pos28" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos29"></td>
+		<td id="pos30" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos31" ></td>
+		<td id="pos32" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		</tr>
+		<tr class="row5">
+		<td id="pos33" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos34"></td>
+		<td id="pos35" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos36"></td>
+		<td id="pos37" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos38" ></td>
+		<td id="pos39" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+		<td id="pos40" ></td>
+		</tr>
+		<tr class="row6">
+		<td id="pos41"></td>
+		<td id="pos42" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue1" class="" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos43"></td>
+		<td id="pos44" ondrop="drop(event)" ondragover="allowDrop(event)">
+		
+			<img id="blue2" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)" width="100px" height="100px;">
+			
+		</td>
+		<td id="pos45" ></td>
+		<td id="pos46" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue3" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos47" ></td>
+		<td id="pos48" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue4" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		</tr>
+		<tr class="row7">
+		<td id="pos49" ondrop="drop(event)" ondragover="allowDrop(event)">
+		
+			<img id="blue5" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos50" ></td>
+		<td id="pos51" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue6" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos52" ></td>
+		<td id="pos53" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue7" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos54" ></td>
+		<td id="pos55" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue8" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos56" ></td>
+		</tr>
+		<tr class="row8">
+		<td id="pos57"></td>
+		<td id="pos58" ondrop="drop(event)"  ondragover="allowDrop(event)">
+			
+			<img id="blue9" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos59" ></td>
+		<td id="pos60" ondrop="drop(event)" ondragover="allowDrop(event)">
+			
+			<img id="blue10" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos61" ></td>
+		<td id="pos62" ondrop="drop(event)" ondragover="allowDrop(event)" >
+			
+			<img id="blue11" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		<td id="pos63"></td>
+		<td id="pos64" ondrop="drop(event)" ondragover="allowDrop(event)" >
+			
+			<img id="blue12" class="" align="center" alt="Blue" style="margin-right:auto; margin-left:10%; width:75%; height:auto;" src="https://raw.githubusercontent.com/lincolngallegos/checkers/images/TokenBlue.jpg" draggable="true" ondragstart="drag(event)"  >
+		</td>
+		</td>
+		</tr>
+	
+	</table>
+	
+	<br><br>
+	  <div style="width:100%;  margin-right:auto; margin-left;auto;" align="center">
+	  <button  id="quit" style="display:none; cursor:pointer;" align="center"> 
+		Quit Game?
+	  </button>
+	  </div>
+	  
+	  <div id="sure" style="width:100%; display:none; margin-right:auto; margin-left;auto; margin-top:250px;" align="center">
+	  <span>Are you sure you want to quit game?</span><br><br>
+	  <button style="cursor:pointer;" id="yes" align="center"> 
+		YES
+	  </button>
+	  <button style="cursor:pointer;" id="no"  align="center"> 
+		NO, Return to Game
+	  </button>
+	  </div>
+	
+
+      <script type = "text/javascript" language="javascript">
+	  
+	  
+	 $(document).ready(function() {
+            $('#play').click(function() {
+			
+				$("#play").hide("slow");
+				
+				$("#menu").hide("slow");
+				
+				$("#insertName").show("slow"); /*,function(){alert("Prepare Yourself");
+				});*/
+				
+				//$("#quit").show("slow");
+				
+			});
+			
+			$('#submit').click(function() {
+			
+				var player1 = document.getElementById("p1").value;
+				var player2 = document.getElementById("p2").value;
+			
+				$("#insertName").hide("slow");
+				
+				//$("#menu").hide("slow");
+				
+				$("#displayName1").text(player1+" you are Red");
+				$("#displayName2").text(player2+" you are Blue");
+
+				
+
+				
+				$("#board").show("slow"); /*,function(){alert("Prepare Yourself");
+				});*/
+				
+				$("#quit").show("slow");
+				
+			});
+				
+			
+			
+			$("#quit").click(function(){
+				$("#board").hide("slow");/*, function(){alert("Quitter!");});*/
+				$("#quit").hide("slow");
+				$("#sure").show("slow");
+				$("#displayName").hide("slow");
+				//$("#play").show("slow");
+				
+				//$("#menu").show("slow");
+				
+				//quit();
+				//location.reload();
+			});
+			
+			$("#yes").click(function(){
+				$("#box").hide("slow", function(){alert("Quitter!");
+				});
+				$("#quit").hide("slow");
+				
+				$("#play").show("slow");
+				
+				$("#menu").show("slow");
+				
+				location.reload();
+			});
+			
+			
+			$("#no").click(function(){
+			
+				$("#sure").hide("slow");
+				$("#displayName").hide("slow");
+				$("#board").show("slow");
+				$("#quit").show("slow");
+				
+			});
+			
+			
+			
+		/*	$("#number1").one('click', function() {
+				Record();
+			});*/
+
+
+			
+			
+			
+		});
+
+var drag_rIndex = " ";
+var drag_cIndex = " ";
+var drop_rIndex = " ";
+var drop_cIndex = " ";
+//var ev = "1";
+var redCnt = 0;
+var blueCnt = 0;
+
+	  function drag(ev)
+{
+	//console.log("1" + drag_Indexes.drag_rIndex + " | " + drag_Indexes.drag_cIndex + " | " + drop_Indexes.drop_rIndex + " | " + drop_Indexes.drop_cIndex);
+	//console.log("1 " + drag_rIndex + " | " + drag_cIndex + " | " + drop_rIndex + " | " + drop_cIndex);
+
+		ev.dataTransfer.setData("Text",ev.target.id);
+		//ev.originalEvent.dataTransfer("Text",ev.target.id);
+		//ev.dataTransfer.effectAllowed("Text",ev.target.id);
+
+		//Row Index
+		drag_rIndex = ev.target.parentNode.parentNode.rowIndex+1;
+	    console.log("Row index is: " + drag_rIndex);
+		
+		//Column Index
+		drag_cIndex = ev.target.parentNode.cellIndex+1;
+		console.log("Cell index is: " + drag_cIndex);
+		
+/*Only drop to certain spots*/
+
+		//legal moves from pos1
+		if(drag_rIndex == 1 && drag_cIndex == 1){
+			console.log("pos 1");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			var pos1 = document.getElementById("pos1");
+			var pos10 = document.getElementById("pos10");
+
+			var child1 = pos1.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			
+			var king = child1.className;
+			
+			var test1 = pos1.contains(child1);
+			var test10 = pos10.contains(child10);
+			//console.log(test1);
+			//console.log(test10);
+			
+			if(test1 == true && test10 == true){
+			
+				var color1 = pos1.firstElementChild.alt;
+				var color10 = pos10.firstElementChild.alt;
+			
+				//console.log(color1);
+				//console.log(color10);
+			
+				if(color1 == "Red" && color10 == "Blue" || king == "blueKing" && color10 == "Red"){
+					//console.log(color1);
+					//console.log(color10);
+					//console.log(king+"1");
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}else if(color1 == "Red" || king == "blueKing"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test1 == true && test10 == false){
+				
+				var color1 = pos1.firstElementChild.alt;
+				//console.log("test");
+				if(color1 == "Red" || king == "blueKing"){
+					//console.log(king+"2");
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			
+		
+		}
+		
+		
+		
+		//legal moves from pos3
+		if(drag_rIndex == 1 && drag_cIndex == 3){
+			console.log("pos 3");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos3 = document.getElementById("pos3");
+			var pos10 = document.getElementById("pos10");
+			var pos17 = document.getElementById("pos17");
+			var pos12 = document.getElementById("pos12");
+			var pos21 = document.getElementById("pos21");
+			
+			var child3 = pos3.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			var child17 = pos17.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var king = child3.className;
+			
+			var test3 = pos3.contains(child3);
+			var test10 = pos10.contains(child10);
+			var test17 = pos17.contains(child17);
+			var test12 = pos12.contains(child12);
+			var test21 = pos21.contains(child21);
+			//console.log(test1);
+			//console.log(test10);
+			
+			if(test3 == true && test10 == true){
+			
+				var color3 = pos3.firstElementChild.alt;
+				var color10 = pos10.firstElementChild.alt;
+			
+				//console.log(color3);
+				//console.log(color10);
+			
+				if(color3 == "Red" && color10 == "Blue"  || king == "blueKing" && color10 == "Red"){
+					//console.log(color3);
+					//console.log(color10);
+					document.getElementById("pos17").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos17").setAttribute("ondrop", "drop(event)");
+				}else if(color3 == "Red" || king == "blueKing"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test3 == true && test10 == false){
+				var color3 = pos3.firstElementChild.alt;
+
+				if(color3 == "Red"  || king == "blueKing"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test3 == true && test12 == true){
+			
+				var color3 = pos3.firstElementChild.alt;
+				var color12 = pos12.firstElementChild.alt;
+			
+				//console.log(color3);
+				//console.log(color12);
+			
+				if(color3 == "Red" && color12 == "Blue" || king == "blueKing" && color12 == "Red"){
+					//console.log(color3);
+					//console.log(color12);
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}else if(color3 == "Red" || king == "blueKing"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test3 == true && test12 == false){
+				var color3 = pos3.firstElementChild.alt;
+
+				if(color3 == "Red" || king == "blueKing"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+		
+		
+		
+		
+		//legal moves from pos5
+		if(drag_rIndex == 1 && drag_cIndex == 5){
+			console.log("pos 5");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos5 = document.getElementById("pos5");
+			var pos12 = document.getElementById("pos12");
+			var pos19 = document.getElementById("pos19");
+			var pos14 = document.getElementById("pos14");
+			var pos23 = document.getElementById("pos23");
+			
+			var child5 = pos5.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var king = child5.className;
+			
+			var test5 = pos5.contains(child5);
+			var test12 = pos12.contains(child12);
+			var test19 = pos19.contains(child19);
+			var test14 = pos14.contains(child14);
+			var test23 = pos23.contains(child23);
+			//console.log(test5);
+			//console.log(test12);
+			
+			if(test5 == true && test12 == true){
+			
+				var color5 = pos5.firstElementChild.alt;
+				var color12 = pos12.firstElementChild.alt;
+			
+				//console.log(color5);
+				//console.log(color12);
+			
+				if(color5 == "Red" && color12 == "Blue"  || king == "blueKing" && color12 == "Red"){
+					//console.log(color5);
+					//console.log(color12);
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}else if(color5 == "Red" || king == "blueKing"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test5 == true && test12 == false){
+				var color5 = pos5.firstElementChild.alt;
+				if(color5 == "Red" || king == "blueKing"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test5 == true && test14 == true){
+			
+				var color5 = pos5.firstElementChild.alt;
+				var color14 = pos14.firstElementChild.alt;
+			
+				//console.log(color5);
+				//console.log(color14);
+			
+				if(color5 == "Red" && color14 == "Blue" || king == "blueKing" && color14 == "Red"){
+					//console.log(color5);
+					//console.log(color14);
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}else if(color5 == "Red" || king == "blueKing"){
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test5 == true && test14 == false){
+				var color5 = pos5.firstElementChild.alt;
+				if(color5 == "Red" || king == "blueKing"){
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+		
+		
+		
+		
+		
+		
+		//legal moves from pos7
+		if(drag_rIndex == 1 && drag_cIndex == 7){
+			console.log("pos 7");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos7 = document.getElementById("pos7");
+			var pos14 = document.getElementById("pos14");
+			var pos21 = document.getElementById("pos21");
+			var pos16 = document.getElementById("pos16");
+			
+			var child7 = pos7.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child16 = pos16.firstElementChild;
+			var king = child7.className;
+			
+			var test7 = pos7.contains(child7);
+			var test14 = pos14.contains(child14);
+			var test21 = pos21.contains(child21);
+			var test16 = pos16.contains(child16);
+			//console.log(test1);
+			//console.log(test10);
+			
+			if(test7 == true && test14 == true){
+			
+				var color7 = pos7.firstElementChild.alt;
+				var color14 = pos14.firstElementChild.alt;
+			
+				//console.log(color7);
+				//console.log(color14);
+			
+				if(color7 == "Red" && color14 == "Blue"  || king == "blueKing" && color14 == "Red"){
+					//console.log(color7);
+					//console.log(color14);
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}else if(color7 == "Red" || king == "blueKing"){
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test7 == true && test14 == false){
+				var color7 = pos7.firstElementChild.alt;
+				if(color7 == "Red" || king == "blueKing"){
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test7 == true && test16 == false){
+				var color7 = pos7.firstElementChild.alt;
+				if(color7 == "Red" || king == "blueKing"){
+					document.getElementById("pos16").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos16").setAttribute("ondrop", "drop(event)");
+				}
+				//var color5 = pos5.firstElementChild.alt;
+				//var color14 = pos14.firstElementChild.alt;
+			
+				//console.log(color7);
+				//console.log(color14);
+			
+				/*if(color5 == "Red" && color14 == "Blue" || color5=="Blue" && color14=="Red"){
+					//console.log(color7);
+					//console.log(color14);
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}else{
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}
+			
+		
+		}
+		
+		
+		//legal moves from pos10
+		if(drag_rIndex == 2 && drag_cIndex == 2){
+			console.log("pos 10");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos1 = document.getElementById("pos1");
+			var pos3 = document.getElementById("pos3");
+			var pos10 = document.getElementById("pos10");
+			var pos17 = document.getElementById("pos17");
+			var pos19 = document.getElementById("pos19");
+			var pos28 = document.getElementById("pos28");
+			
+			var child1 = pos1.firstElementChild;
+			var child3 = pos3.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			var child17 = pos17.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var king = child10.className;
+			
+			var test1 = pos1.contains(child1);
+			var test3 = pos3.contains(child3);
+			var test10 = pos10.contains(child10);
+			var test17 = pos17.contains(child17);
+			var test19 = pos19.contains(child19);
+			var test28 = pos28.contains(child28);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			
+			if(test10 == true && test1 == false){
+				var color10 = pos10.firstElementChild.alt;
+				//console.log("test1");
+				if(color10 == "Blue" || king == "redKing"){
+					document.getElementById("pos1").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos1").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			if(test10 == true && test3 == false){
+				var color10 = pos10.firstElementChild.alt;
+				//console.log("test3");
+
+				if(color10 == "Blue" || king == "redKing"){
+						document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test10 == true && test17 == false){
+				
+				var color10 = pos10.firstElementChild.alt;
+				
+				if(color10 == "Red" || king == "blueKing"){
+					document.getElementById("pos17").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos17").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			if(test10 == true && test19 == false){
+				
+				var color10 = pos10.firstElementChild.alt;
+				
+				if(color10 == "Red" || king == "blueKing"){
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			if(test10 == true && test19 == true){
+			
+				var color10 = pos10.firstElementChild.alt;
+				var color19 = pos19.firstElementChild.alt;
+			
+				//console.log(color10);
+				//console.log(color19);
+			
+				if(color10 == "Red" && color19 == "Blue" || king == "blueKing" && color19 == "Red"){
+					//console.log(color10);
+					//console.log(color19);
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+				}else if(color10 == "Blue" || king == "redKing"){
+					document.getElementById("pos1").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos1").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos17").setAttribute("ondragover", " ");
+					document.getElementById("pos17").setAttribute("ondrop", " ");
+					document.getElementById("pos19").setAttribute("ondragover", " ");
+					document.getElementById("pos19").setAttribute("ondrop", " ");*/
+				}/*else if(color10 == "Red" || king == "blueKing"){
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}/*else if(color10 == "Red" || king == "blueKing"){
+				document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+			}*/
+
+		}
+		
+		
+		//legal moves from pos12
+		if(drag_rIndex == 2 && drag_cIndex == 4){
+			console.log("pos 12");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos12").hasChildNodes();
+			//console.log(test);
+			
+			var pos3 = document.getElementById("pos3");
+			var pos5 = document.getElementById("pos5");
+			var pos12 = document.getElementById("pos12");
+			var pos19 = document.getElementById("pos19");
+			var pos26 = document.getElementById("pos26");
+			var pos21 = document.getElementById("pos21");
+			var pos30 = document.getElementById("pos30");
+			
+			var child3 = pos3.firstElementChild;
+			var child5 = pos5.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			var king = child12.className;
+			
+			var test3 = pos3.contains(child3);
+			var test5 = pos5.contains(child5);
+			var test12 = pos12.contains(child12);
+			var test19 = pos19.contains(child19);
+			var test26 = pos26.contains(child26);
+			var test21 = pos21.contains(child21);
+			var test30 = pos30.contains(child30);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test12 == true && test3 == false){
+				var color12 = pos12.firstElementChild.alt;
+				//console.log("test3");
+
+				if(color12 == "Blue"  || king == "redKing"){
+					document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			if(test12 == true && test5 == false){
+				var color12 = pos12.firstElementChild.alt;
+				//console.log("test5");
+
+				if(color12 == "Blue"  || king == "redKing"){
+						document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test12 == true && test19 == false || test12 == true && test21 == false){
+				
+				var color12 = pos12.firstElementChild.alt;
+				
+				if(color12 == "Red" || king == "blueKing"){
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			
+			
+			if(test12 == true && test19 == true){
+			
+				var color12 = pos12.firstElementChild.alt;
+				var color19 = pos19.firstElementChild.alt;
+			
+				//console.log(color12);
+				//console.log(color19);
+			
+				if(color12 == "Red" && color19 == "Blue" || king == "blueKing" && color19 == "Red"){
+					//console.log(color12);
+					//console.log(color19);
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}else if(color12 == "Blue" || king == "redKing"){
+					document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+				}/*else{
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}/*else{
+				document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+			if(test12 == true && test21 == true){
+			
+				var color12 = pos12.firstElementChild.alt;
+				var color21 = pos21.firstElementChild.alt;
+			
+				//console.log(color12);
+				//console.log(color21);
+			
+				if(color12 == "Red" && color21 == "Blue" || king == "blueKing" && color21 == "Red"){
+					//console.log(color12);
+					//console.log(color21);
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+				}else if(color12 == "Red" || king == "blueKing"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+		
+		}
+		
+		
+		
+		
+		
+		
+		//legal moves from pos14
+		if(drag_rIndex == 2 && drag_cIndex == 6){
+			console.log("pos 14");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos5 = document.getElementById("pos5");
+			var pos7 = document.getElementById("pos7");
+			var pos14 = document.getElementById("pos14");
+			var pos21 = document.getElementById("pos21");
+			var pos28 = document.getElementById("pos28");
+			var pos23 = document.getElementById("pos23");
+			var pos32 = document.getElementById("pos32");
+			
+			var child5 = pos5.firstElementChild;
+			var child7 = pos7.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var child32 = pos32.firstElementChild;
+			
+			var king = child14.className;
+			
+			var test5 = pos5.contains(child5);
+			var test7 = pos7.contains(child7);
+			var test14 = pos14.contains(child14);
+			var test21 = pos21.contains(child21);
+			var test28 = pos28.contains(child28);
+			var test23 = pos23.contains(child23);
+			var test32 = pos32.contains(child32);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test14 == true && test5 == false){
+				var color14 = pos14.firstElementChild.alt;
+				//console.log("test5");
+				if(color14 == "Blue" || king == "redKing"){
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			if(test14 == true && test7 == false){
+				var color14 = pos14.firstElementChild.alt;
+								//console.log("test7");
+
+				if(color14 == "Blue"  || king == "redKing"){
+						document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test14 == true && test21 == false || test14 == true && test23 == false){
+				
+				var color14 = pos14.firstElementChild.alt;
+				
+				if(color14 == "Red"  || king == "blueKing"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			
+			
+			if(test14 == true && test21 == true){
+			
+				var color14 = pos14.firstElementChild.alt;
+				var color21 = pos21.firstElementChild.alt;
+			
+				//console.log(color14);
+				//console.log(color21);
+			
+				if(color14 == "Red" && color21 == "Blue" || king == "blueKing" && color21 == "Red"){
+					//console.log(color14);
+					//console.log(color21);
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+				}else if(color14 == "Blue" || king == "redKing"){
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}else if(color14 == "Red" || king == "blueKing"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(color14 == "Red" || king == "blueKing"){
+				document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+			}
+			
+			if(test14 == true && test23 == true){
+			
+				var color14 = pos14.firstElementChild.alt;
+				var color23 = pos23.firstElementChild.alt;
+			
+				//console.log(color14);
+				//console.log(color23);
+			
+				if(color14 == "Red" && color23 == "Blue" || king == "blueKing" && color23 == "Red"){
+					//console.log(color14);
+					//console.log(color23);
+					document.getElementById("pos32").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos32").setAttribute("ondrop", "drop(event)");
+				}else if(color14 == "Blue" || king == "redKing"){
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}else if(color14 == "Red" || king == "blueKing"){
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(color14 == "Red" || king == "blueKing"){
+				document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+			}
+			
+		
+		}
+		
+		
+		
+		//legal moves from pos16
+		if(drag_rIndex == 2 && drag_cIndex == 8){
+			console.log("pos 16");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos16").hasChildNodes();
+			//console.log(test);
+			
+			
+			var pos7 = document.getElementById("pos7");
+			var pos16 = document.getElementById("pos16");
+			var pos23 = document.getElementById("pos23");
+			var pos30 = document.getElementById("pos30");
+			
+			
+			var child7 = pos7.firstElementChild;
+			var child16 = pos16.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			
+			var king = child16.className;
+			
+			var test7 = pos7.contains(child7);
+			var test16 = pos16.contains(child16);
+			var test23 = pos23.contains(child23);
+			var test30 = pos30.contains(child30);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test16 == true && test7 == false){
+				var color16 = pos16.firstElementChild.alt;
+				//console.log("test7");
+				if(color16 == "Blue" || king == "redKing"){
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test16 == true && test23 == false){
+				
+				var color16 = pos16.firstElementChild.alt;
+				
+				if(color16 == "Red" || king == "blueKing"){
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			
+			
+			if(test16 == true && test23 == true){
+			
+				var color16 = pos16.firstElementChild.alt;
+				var color23 = pos23.firstElementChild.alt;
+			
+				//console.log(color16);
+				//console.log(color23);
+			
+				if(color16 == "Red" && color23 == "Blue" || king == "blueKing" && color23 == "Red"){
+					//console.log(color16);
+					//console.log(color23);
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+				}else if(color16 == "Blue"  || king == "redKing"){
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}else if(color16 == "Red" || king == "blueKing"){
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+			
+				}else if(color16 == "Red" || king == "blueKing"){
+				document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+			}
+			
+		
+			
+		
+		}
+		
+		//legal moves from pos17
+		if(drag_rIndex == 3 && drag_cIndex == 1){
+			console.log("pos 17");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos3 = document.getElementById("pos3");
+			var pos10 = document.getElementById("pos10");
+			var pos17 = document.getElementById("pos17");
+			var pos26 = document.getElementById("pos26");
+			var pos35 = document.getElementById("pos35");
+			
+			var child3 = pos3.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			var child17 = pos17.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			
+			var king = child17.className;
+			
+			var test3 = pos3.contains(child3);
+			var test10 = pos10.contains(child10);
+			var test17 = pos17.contains(child17);
+			var test26 = pos26.contains(child26);
+			var test35 = pos35.contains(child35);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test17 == true && test10 == false){
+				var color17 = pos17.firstElementChild.alt;
+				console.log("test10");
+				if(color17 == "Blue" || king == "redKing"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos35").setAttribute("ondragover", " ");
+					document.getElementById("pos35").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test17 == true && test26 == false){
+				var color17 = pos17.firstElementChild.alt;
+				console.log("test26");
+
+				if(color17 == "Red" || king == "blueKing"){
+						document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos10").setAttribute("ondragover", " ");
+						document.getElementById("pos10").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			
+			/*if(test14 == true && test21 == false || test14 == true && test23 == false){
+				
+				var color14 = pos14.firstElementChild.alt;
+				
+				if(color14 == "Red"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}*/
+			
+			
+			
+			if(test17 == true && test10 == true){
+			
+				var color17 = pos17.firstElementChild.alt;
+				var color10 = pos10.firstElementChild.alt;
+			
+				//console.log(color17);
+				//console.log(color10);
+			
+				if(color17 == "Blue" && color10 == "Red" || king == "redKing" && color10 == "Blue"){
+					//console.log(color17);
+					//console.log(color10);
+					document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+				}/*else if(color17 == "Red"){
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}*/
+				/*else{
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}/*else{
+				document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+			if(test17 == true && test26 == true){
+			
+				var color17 = pos17.firstElementChild.alt;
+				var color26 = pos26.firstElementChild.alt;
+			
+				//console.log(color17);
+				//console.log(color26);
+			
+				if(color17 == "Red" && color26 == "Blue" || king == "blueKing" && color26 == "Red"){
+					//console.log(color17);
+					//console.log(color26);
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+				}/*else if(color17 == "Blue"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					
+				}else{
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}/*else{
+				document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+		
+		}
+		
+		//legal moves from pos19
+		if(drag_rIndex == 3 && drag_cIndex == 3){
+			console.log("pos 19");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos19 = document.getElementById("pos19");
+			var pos1 = document.getElementById("pos1");
+			var pos10 = document.getElementById("pos10");
+			var pos5 = document.getElementById("pos5");
+			var pos12 = document.getElementById("pos12");
+			var pos26 = document.getElementById("pos26");
+			var pos33 = document.getElementById("pos33");
+			var pos28 = document.getElementById("pos28");
+			var pos37 = document.getElementById("pos37");
+			
+			var child19 = pos19.firstElementChild;
+			var child1 = pos1.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			var child5 = pos5.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child33 = pos33.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			
+			var king = child19.className;
+			
+			var test19 = pos19.contains(child19);
+			var test1 = pos1.contains(child1);
+			var test10 = pos10.contains(child10);
+			var test5 = pos5.contains(child5);
+			var test12 = pos12.contains(child12);
+			var test26 = pos26.contains(child26);
+			var test33 = pos33.contains(child33);
+			var test28 = pos28.contains(child28);
+			var test37 = pos37.contains(child37);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test19 == true && test10 == false || test19 == true && test12 == false){
+				var color19 = pos19.firstElementChild.alt;
+				//console.log("test10 & 12");
+				if(color19 == "Blue" || king == "redKing"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos33").setAttribute("ondragover", " ");
+					document.getElementById("pos33").setAttribute("ondrop", " ");
+					document.getElementById("pos37").setAttribute("ondragover", " ");
+					document.getElementById("pos37").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test19 == true && test26 == false || test19 == true && test28 == false){
+				var color19 = pos19.firstElementChild.alt;
+				//console.log("test26 & 28");
+
+				if(color19 == "Red" || king == "blueKing"){
+						document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos10").setAttribute("ondragover", " ");
+						document.getElementById("pos10").setAttribute("ondrop", " ");
+						document.getElementById("pos12").setAttribute("ondragover", " ");
+						document.getElementById("pos12").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test19 == true && test10 == true){
+			
+				var color19 = pos19.firstElementChild.alt;
+				var color10 = pos10.firstElementChild.alt;
+			
+				//console.log(color19);
+				//console.log(color10);
+			
+				if(color19 == "Blue" && color10 == "Red" || king == "redKing" && color10 == "Blue"){
+					//console.log(color19);
+					//console.log(color10);
+					document.getElementById("pos1").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos1").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test19 == true && test12 == true){
+			
+				var color19 = pos19.firstElementChild.alt;
+				var color12 = pos12.firstElementChild.alt;
+			
+				//console.log(color19);
+				//console.log(color12);
+			
+				if(color19 == "Blue" && color12 == "Red" || king == "redKing" && color12 == "Blue"){
+					//console.log(color19);
+					//console.log(color12);
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+				
+			
+			if(test19 == true && test26 == true){
+			
+				var color19 = pos19.firstElementChild.alt;
+				var color26 = pos26.firstElementChild.alt;
+			
+				//console.log(color19);
+				//console.log(color26);
+			
+				if(color19 == "Red" && color26 == "Blue" || king == "blueKing" && color26 == "Red"){
+					//console.log(color19);
+					//console.log(color26);
+					document.getElementById("pos33").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos33").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test19 == true && test28 == true){
+			
+				var color19 = pos19.firstElementChild.alt;
+				var color28 = pos28.firstElementChild.alt;
+			
+				//console.log(color19);
+				//console.log(color28);
+			
+				if(color19 == "Red" && color28 == "Blue" || king == "blueKing" && color28 == "Red"){
+					//console.log(color19);
+					//console.log(color28);
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+				}
+			
+		}
+	}
+
+	//legal moves from pos21
+		if(drag_rIndex == 3 && drag_cIndex == 5){
+			console.log("pos 21");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos21 = document.getElementById("pos21");
+			var pos3 = document.getElementById("pos3");
+			var pos12 = document.getElementById("pos12");
+			var pos7 = document.getElementById("pos7");
+			var pos14 = document.getElementById("pos14");
+			var pos28 = document.getElementById("pos28");
+			var pos35 = document.getElementById("pos35");
+			var pos30 = document.getElementById("pos30");
+			var pos39 = document.getElementById("pos39");
+			
+			var child21 = pos21.firstElementChild;
+			var child3 = pos3.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child7 = pos7.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			
+			var king = child21.className;
+			
+			var test21 = pos21.contains(child21);
+			var test3 = pos3.contains(child3);
+			var test12 = pos12.contains(child12);
+			var test7 = pos7.contains(child7);
+			var test14 = pos14.contains(child14);
+			var test28 = pos28.contains(child28);
+			var test35 = pos35.contains(child35);
+			var test30 = pos30.contains(child30);
+			var test39 = pos39.contains(child39);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test21 == true && test12 == false || test21 == true && test14 == false){
+				var color21 = pos21.firstElementChild.alt;
+				//console.log("test12 & 14");
+				if(color21 == "Blue" || king == "redKing"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos35").setAttribute("ondragover", " ");
+					document.getElementById("pos35").setAttribute("ondrop", " ");
+					document.getElementById("pos39").setAttribute("ondragover", " ");
+					document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test21 == true && test28 == false || test21 == true && test30 == false){
+				var color21 = pos21.firstElementChild.alt;
+				//console.log("test28 & 30");
+
+				if(color21 == "Red" || king == "blueKing"){
+						document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos12").setAttribute("ondragover", " ");
+						document.getElementById("pos12").setAttribute("ondrop", " ");
+						document.getElementById("pos14").setAttribute("ondragover", " ");
+						document.getElementById("pos14").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test21 == true && test12 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color12 = pos12.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color12);
+			
+				if(color21 == "Blue" && color12 == "Red" || king == "redKing" && color12 == "Blue"){
+					//console.log(color21);
+					//console.log(color12);
+					document.getElementById("pos3").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos3").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test21 == true && test14 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color14 = pos14.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color14);
+			
+				if(color21 == "Blue" && color14 == "Red" || king == "redKing" && color14 == "Blue"){
+					//console.log(color21);
+					//console.log(color14);
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}				
+			
+			if(test21 == true && test28 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color28 = pos28.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color28);
+			
+				if(color21 == "Red" && color28 == "Blue" || king == "blueKing" && color28 == "Red"){
+					//console.log(color21);
+					//console.log(color28);
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test21 == true && test30 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color30 = pos30.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color30);
+			
+				if(color21 == "Red" && color30 == "Blue" || king == "blueKing" && color30 == "Red"){
+					//console.log(color21);
+					//console.log(color30);
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}
+	
+		}
+	}
+
+	//legal moves from pos23
+		if(drag_rIndex == 3 && drag_cIndex == 7){
+			console.log("pos 23");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos23 = document.getElementById("pos23");
+			var pos5 = document.getElementById("pos5");
+			var pos14 = document.getElementById("pos14");
+			//var pos7 = document.getElementById("pos7");
+			var pos16 = document.getElementById("pos16");
+			var pos30 = document.getElementById("pos30");
+			var pos37 = document.getElementById("pos37");
+			var pos32 = document.getElementById("pos32");
+			//var pos39 = document.getElementById("pos39");
+			
+			var child23 = pos23.firstElementChild;
+			var child5 = pos5.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			//var child7 = pos7.firstElementChild;
+			var child16 = pos16.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child32 = pos32.firstElementChild;
+			//var child39 = pos39.firstElementChild;
+			
+			var king = child23.className;
+			
+			
+			var test23 = pos23.contains(child23);
+			var test5 = pos5.contains(child5);
+			var test14 = pos14.contains(child14);
+			//var test7 = pos7.contains(child7);
+			var test16 = pos16.contains(child16);
+			var test30 = pos30.contains(child30);
+			var test37 = pos37.contains(child37);
+			var test32 = pos32.contains(child32);
+			//var test39 = pos39.contains(child39);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test23 == true && test14 == false || test23 == true && test16 == false){
+				var color23 = pos23.firstElementChild.alt;
+				//console.log("test14 & 16");
+				if(color23 == "Blue" || king == "redKing"){
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos16").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos16").setAttribute("ondrop", "drop(event)");
+					
+					/*document.getElementById("pos37").setAttribute("ondragover", " ");
+					document.getElementById("pos37").setAttribute("ondrop", " ");
+					document.getElementById("pos39").setAttribute("ondragover", " ");
+					document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test23 == true && test30 == false || test23 == true && test32 == false){
+				var color23 = pos23.firstElementChild.alt;
+				//console.log("test30 & 32");
+
+				if(color23 == "Red" || king == "blueKing"){
+						document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos32").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos32").setAttribute("ondrop", "drop(event)");
+						
+						/*document.getElementById("pos14").setAttribute("ondragover", " ");
+						document.getElementById("pos14").setAttribute("ondrop", " ");
+						document.getElementById("pos16").setAttribute("ondragover", " ");
+						document.getElementById("pos16").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}	
+			
+			if(test23 == true && test14 == true){
+			
+				var color23 = pos23.firstElementChild.alt;
+				var color14 = pos14.firstElementChild.alt;
+			
+				//console.log(color23);
+				//console.log(color14);
+			
+				if(color23 == "Blue" && color14 == "Red" || king == "redKing" && color14 == "Blue"){
+					//console.log(color23);
+					//console.log(color14);
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			/*if(test23 == true && test16 == true){
+			
+				var color23 = pos23.firstElementChild.alt;
+				var color16 = pos16.firstElementChild.alt;
+			
+				//console.log(color23);
+				//console.log(color16);
+			
+				if(color23 == "Blue" && color16 == "Red"){
+					//console.log(color23);
+					//console.log(color16);
+					document.getElementById("pos9").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos9").setAttribute("ondrop", "drop(event)");
+				}else if(color23 == "Red"){
+					document.getElementById("pos5").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos5").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}
+				else{
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+			}*/
+				
+			
+			if(test23 == true && test30 == true){
+			
+				var color23 = pos23.firstElementChild.alt;
+				var color30 = pos30.firstElementChild.alt;
+			
+				//console.log(color23);
+				//console.log(color30);
+			
+				if(color23 == "Red" && color30 == "Blue" || king == "blueKing" && color30 == "Red"){
+					//console.log(color23);
+					//console.log(color30);
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		/*if(test23 == true && test32 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color30 = pos30.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color30);
+			
+				if(color21 == "Red" && color30 == "Blue"){
+					//console.log(color21);
+					//console.log(color30);
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}else if(color17 == "Blue"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					
+				}else{
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+		
+		}
+
+	//legal moves from pos26
+		if(drag_rIndex == 4 && drag_cIndex == 2){
+			console.log("pos 26");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos19").hasChildNodes();
+			//console.log(test);
+			
+			var pos26 = document.getElementById("pos26");
+			var pos12 = document.getElementById("pos12");
+			var pos19 = document.getElementById("pos19");
+			//var pos7 = document.getElementById("pos7");
+			var pos17 = document.getElementById("pos17");
+			var pos35 = document.getElementById("pos35");
+			var pos44 = document.getElementById("pos44");
+			var pos33 = document.getElementById("pos33");
+			//var pos39 = document.getElementById("pos39");
+			
+			var child26 = pos26.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			//var child7 = pos7.firstElementChild;
+			var child17 = pos17.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child33 = pos33.firstElementChild;
+			//var child39 = pos39.firstElementChild;
+			
+			var king = child26.className;
+			
+			var test26 = pos26.contains(child26);
+			var test12 = pos12.contains(child12);
+			var test19 = pos19.contains(child19);
+			//var test7 = pos7.contains(child7);
+			var test17 = pos17.contains(child17);
+			var test35 = pos35.contains(child35);
+			var test44 = pos44.contains(child44);
+			var test33 = pos33.contains(child33);
+			//var test39 = pos39.contains(child39);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test26 == true && test19 == false || test26 == true && test17 == false){
+				var color26 = pos26.firstElementChild.alt;
+				//console.log("test19 & 17");
+				if(color26 == "Blue" || king == "redKing"){
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos17").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos17").setAttribute("ondrop", "drop(event)");
+					
+					/*document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");
+					document.getElementById("pos39").setAttribute("ondragover", " ");
+					document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test26 == true && test35 == false || test26 == true && test33 == false){
+				var color26 = pos26.firstElementChild.alt;
+				//console.log("test35 & 33");
+
+				if(color26 == "Red" || king == "blueKing"){
+						document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos33").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos33").setAttribute("ondrop", "drop(event)");
+						
+						/*document.getElementById("pos19").setAttribute("ondragover", " ");
+						document.getElementById("pos19").setAttribute("ondrop", " ");
+						document.getElementById("pos17").setAttribute("ondragover", " ");
+						document.getElementById("pos17").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test26 == true && test19 == true){
+			
+				var color26 = pos26.firstElementChild.alt;
+				var color19 = pos19.firstElementChild.alt;
+			
+				//console.log(color26);
+				//console.log(color19);
+			
+				if(color26 == "Blue" && color19 == "Red" || king == "redKing" && color19 == "Blue"){
+					//console.log(color26);
+					//console.log(color19);
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			/*if(test26 == true && test17 == true){
+			
+				var color26 = pos26.firstElementChild.alt;
+				var color17 = pos17.firstElementChild.alt;
+			
+				//console.log(color26);
+				//console.log(color17);
+			
+				if(color26 == "Blue" && color17 == "Red"){
+					//console.log(color26);
+					//console.log(color17);
+					document.getElementById("pos9").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos9").setAttribute("ondrop", "drop(event)");
+				}else if(color26 == "Red"){
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}
+				else{
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+			}*/
+				
+			
+			if(test26 == true && test35 == true){
+			
+				var color26 = pos26.firstElementChild.alt;
+				var color35 = pos35.firstElementChild.alt;
+			
+				//console.log(color26);
+				//console.log(color35);
+			
+				if(color26 == "Red" && color35 == "Blue" || king == "blueKing" && color35 == "Red"){
+					//console.log(color26);
+					//console.log(color35);
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		/*if(test26 == true && test33 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color35 = pos35.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color35);
+			
+				if(color21 == "Red" && color35 == "Blue"){
+					//console.log(color21);
+					//console.log(color35);
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}else if(color17 == "Blue"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					
+				}else{
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+		
+		}
+	
+	//legal moves from pos28
+		if(drag_rIndex == 4 && drag_cIndex == 4){
+			console.log("pos 28");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos28 = document.getElementById("pos28");
+			var pos10 = document.getElementById("pos10");
+			var pos19 = document.getElementById("pos19");
+			var pos14 = document.getElementById("pos14");
+			var pos21 = document.getElementById("pos21");
+			var pos35 = document.getElementById("pos35");
+			var pos42 = document.getElementById("pos42");
+			var pos37 = document.getElementById("pos37");
+			var pos46 = document.getElementById("pos46");
+			
+			var child28 = pos28.firstElementChild;
+			var child10 = pos10.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			var child14 = pos14.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			var child42 = pos42.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			
+			var king = child28.className;
+			
+			var test28 = pos28.contains(child28);
+			var test10 = pos10.contains(child10);
+			var test19 = pos19.contains(child19);
+			var test14 = pos14.contains(child14);
+			var test21 = pos21.contains(child21);
+			var test35 = pos35.contains(child35);
+			var test42 = pos42.contains(child42);
+			var test37 = pos37.contains(child37);
+			var test46 = pos46.contains(child46);
+			//console.log(test1);
+			//console.log(test19);
+			
+			
+			if(test28 == true && test19 == false || test28 == true && test21 == false){
+				var color28 = pos28.firstElementChild.alt;
+				//console.log("test19 & 21");
+				if(color28 == "Blue" || king == "redKing"){
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos42").setAttribute("ondragover", " ");
+					document.getElementById("pos42").setAttribute("ondrop", " ");
+					document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test28 == true && test35 == false || test28 == true && test37 == false){
+				var color28 = pos28.firstElementChild.alt;
+				//console.log("test35 & 37");
+
+				if(color28 == "Red" || king == "blueKing"){
+						document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos19").setAttribute("ondragover", " ");
+						document.getElementById("pos19").setAttribute("ondrop", " ");
+						document.getElementById("pos21").setAttribute("ondragover", " ");
+						document.getElementById("pos21").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test28 == true && test19 == true){
+			
+				var color28 = pos28.firstElementChild.alt;
+				var color19 = pos19.firstElementChild.alt;
+			
+				//console.log(color28);
+				//console.log(color19);
+			
+				if(color28 == "Blue" && color19 == "Red" || king == "redKing" && color19 == "Blue"){
+					//console.log(color28);
+					//console.log(color19);
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test28 == true && test21 == true){
+			
+				var color28 = pos28.firstElementChild.alt;
+				var color21 = pos21.firstElementChild.alt;
+			
+				//console.log(color28);
+				//console.log(color21);
+			
+				if(color28 == "Blue" && color21 == "Red"  || king == "redKing" && color21 == "Blue"){
+					//console.log(color28);
+					//console.log(color21);
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+				
+			
+			if(test28 == true && test35 == true){
+			
+				var color28 = pos28.firstElementChild.alt;
+				var color35 = pos35.firstElementChild.alt;
+			
+				//console.log(color28);
+				//console.log(color35);
+			
+				if(color28 == "Red" && color35 == "Blue" || king == "blueKing" && color35 == "Red"){
+					//console.log(color28);
+					//console.log(color35);
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test28 == true && test37 == true){
+			
+				var color28 = pos28.firstElementChild.alt;
+				var color37 = pos37.firstElementChild.alt;
+			
+				//console.log(color28);
+				//console.log(color37);
+			
+				if(color28 == "Red" && color37 == "Blue"  || king == "blueKing" && color37 == "Red"){
+					//console.log(color28);
+					//console.log(color37);
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+		}
+	}
+
+	//legal moves from pos30
+		if(drag_rIndex == 4 && drag_cIndex == 6){
+			console.log("pos 30");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos30 = document.getElementById("pos30");
+			var pos12 = document.getElementById("pos12");
+			var pos21 = document.getElementById("pos21");
+			var pos16 = document.getElementById("pos16");
+			var pos23 = document.getElementById("pos23");
+			var pos37 = document.getElementById("pos37");
+			var pos44 = document.getElementById("pos44");
+			var pos39 = document.getElementById("pos39");
+			var pos48 = document.getElementById("pos48");
+			
+			var child30 = pos30.firstElementChild;
+			var child12 = pos12.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child16 = pos16.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			var child48 = pos48.firstElementChild;
+			
+			var king = child30.className;
+			
+			var test30 = pos30.contains(child30);
+			var test12 = pos12.contains(child12);
+			var test21 = pos21.contains(child21);
+			var test16 = pos16.contains(child16);
+			var test23 = pos23.contains(child23);
+			var test37 = pos37.contains(child37);
+			var test44 = pos44.contains(child44);
+			var test39 = pos39.contains(child39);
+			var test48 = pos48.contains(child48);
+			//console.log(test12);
+			//console.log(test21);
+			
+			
+			if(test30 == true && test21 == false || test30 == true && test23 == false){
+				var color30 = pos30.firstElementChild.alt;
+				//console.log("test21 & 23");
+				if(color30 == "Blue"  || king == "redKing"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");
+					document.getElementById("pos48").setAttribute("ondragover", " ");
+					document.getElementById("pos48").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test30 == true && test37 == false || test30 == true && test39 == false){
+				var color30 = pos30.firstElementChild.alt;
+				//console.log("test37 & 39");
+
+				if(color30 == "Red" || king == "blueKing"){
+						document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos21").setAttribute("ondragover", " ");
+						document.getElementById("pos21").setAttribute("ondrop", " ");
+						document.getElementById("pos23").setAttribute("ondragover", " ");
+						document.getElementById("pos23").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test30 == true && test21 == true){
+			
+				var color30 = pos30.firstElementChild.alt;
+				var color21 = pos21.firstElementChild.alt;
+			
+				//console.log(color30);
+				//console.log(color21);
+			
+				if(color30 == "Blue" && color21 == "Red" || king == "redKing" && color21 == "Blue"){
+					//console.log(color30);
+					//console.log(color21);
+					document.getElementById("pos12").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos12").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test30 == true && test23 == true){
+			
+				var color30 = pos30.firstElementChild.alt;
+				var color23 = pos23.firstElementChild.alt;
+			
+				//console.log(color30);
+				//console.log(color23);
+			
+				if(color30 == "Blue" && color23 == "Red" || king == "redKing" && color23 == "Blue"){
+					//console.log(color30);
+					//console.log(color23);
+					document.getElementById("pos16").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos16").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+				
+			
+			if(test30 == true && test37 == true){
+			
+				var color30 = pos30.firstElementChild.alt;
+				var color37 = pos37.firstElementChild.alt;
+			
+				//console.log(color30);
+				//console.log(color37);
+			
+				if(color30 == "Red" && color37 == "Blue" || king == "blueKing" && color37 == "Red"){
+					//console.log(color30);
+					//console.log(color37);
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+			}
+		
+		if(test30 == true && test39 == true){
+			
+				var color30 = pos30.firstElementChild.alt;
+				var color39 = pos39.firstElementChild.alt;
+			
+				//console.log(color30);
+				//console.log(color39);
+			
+				if(color30 == "Red" && color39 == "Blue" || king == "blueKing" && color39 == "Red"){
+					//console.log(color30);
+					//console.log(color39);
+					document.getElementById("pos48").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos48").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+		}
+	}
+
+
+	//legal moves from pos32
+		if(drag_rIndex == 4 && drag_cIndex == 8){
+			console.log("pos 32");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos14 = document.getElementById("pos14");
+			var pos23 = document.getElementById("pos23");
+			var pos32 = document.getElementById("pos32");
+			var pos39 = document.getElementById("pos39");
+			var pos46 = document.getElementById("pos46");
+			
+			var child14 = pos14.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var child32 = pos32.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			
+			var king = child32.className;
+			
+			var test14 = pos14.contains(child14);
+			var test23 = pos23.contains(child23);
+			var test32 = pos32.contains(child32);
+			var test39 = pos39.contains(child39);
+			var test46 = pos46.contains(child46);
+			//console.log(test1);
+			//console.log(test23);
+			
+			
+			if(test32 == true && test23 == false){
+				var color32 = pos32.firstElementChild.alt;
+				//console.log("test23");
+				if(color32 == "Blue" || king == "redKing"){
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test32 == true && test39 == false){
+				var color32 = pos32.firstElementChild.alt;
+				//console.log("test39");
+
+				if(color32 == "Red" || king == "blueKing"){
+						document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos23").setAttribute("ondragover", " ");
+						document.getElementById("pos23").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			
+			/*if(test14 == true && test21 == false || test14 == true && test23 == false){
+				
+				var color14 = pos14.firstElementChild.alt;
+				
+				if(color14 == "Red"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}*/
+			
+			
+			
+			if(test32 == true && test23 == true){
+			
+				var color32 = pos32.firstElementChild.alt;
+				var color23 = pos23.firstElementChild.alt;
+			
+				//console.log(color32);
+				//console.log(color23);
+			
+				if(color32 == "Blue" && color23 == "Red" || king == "redKing" && color23 == "Blue"){
+					//console.log(color32);
+					//console.log(color23);
+					document.getElementById("pos14").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos14").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos39").setAttribute("ondragover", " ");
+					document.getElementById("pos39").setAttribute("ondrop", " ");
+					document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+				}
+			
+			}
+			
+			if(test32 == true && test39 == true){
+			
+				var color32 = pos32.firstElementChild.alt;
+				var color39 = pos39.firstElementChild.alt;
+			
+				//console.log(color32);
+				//console.log(color39);
+			
+				if(color32 == "Red" && color39 == "Blue" || king == "blueKing" && color39 == "Red"){
+					//console.log(color32);
+					//console.log(color39);
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+	//legal moves from pos33
+		if(drag_rIndex == 5 && drag_cIndex == 1){
+			console.log("pos 33");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos19").hasChildNodes();
+			//console.log(test);
+			
+			var pos19 = document.getElementById("pos19");
+			var pos26 = document.getElementById("pos26");
+			var pos33 = document.getElementById("pos33");
+			var pos42 = document.getElementById("pos42");
+			var pos51 = document.getElementById("pos51");
+			
+			var child19 = pos19.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child33 = pos33.firstElementChild;
+			var child42 = pos42.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			
+			var king = child33.className;
+			
+			var test19 = pos19.contains(child19);
+			var test26 = pos26.contains(child26);
+			var test33 = pos33.contains(child33);
+			var test42 = pos42.contains(child42);
+			var test51 = pos51.contains(child51);
+			//console.log(test1);
+			//console.log(test26);
+			
+			
+			if(test33 == true && test26 == false){
+				var color33 = pos33.firstElementChild.alt;
+				//console.log("test26");
+				if(color33 == "Blue" || king == "redKing"){
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos51").setAttribute("ondragover", " ");
+					document.getElementById("pos51").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test33 == true && test42 == false){
+				var color33 = pos33.firstElementChild.alt;
+				//console.log("test42");
+
+				if(color33 == "Red" || king == "blueKing"){
+						document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos26").setAttribute("ondragover", " ");
+						document.getElementById("pos26").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			
+			/*if(test19 == true && test21 == false || test19 == true && test26 == false){
+				
+				var color19 = pos19.firstElementChild.alt;
+				
+				if(color19 == "Red"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}*/
+			
+			if(test33 == true && test26 == true){
+			
+				var color33 = pos33.firstElementChild.alt;
+				var color26 = pos26.firstElementChild.alt;
+			
+				//console.log(color33);
+				//console.log(color26);
+			
+				if(color33 == "Blue" && color26 == "Red" || king == "redKing" && color26 == "Blue"){
+					//console.log(color33);
+					//console.log(color26);
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos42").setAttribute("ondragover", " ");
+					document.getElementById("pos42").setAttribute("ondrop", " ");
+					document.getElementById("pos51").setAttribute("ondragover", " ");
+					document.getElementById("pos51").setAttribute("ondrop", " ");*/
+				}
+			
+			}
+			
+			if(test33 == true && test42 == true){
+			
+				var color33 = pos33.firstElementChild.alt;
+				var color42 = pos42.firstElementChild.alt;
+			
+				//console.log(color33);
+				//console.log(color42);
+			
+				if(color33 == "Red" && color42 == "Blue" || king == "blueKing" && color42 == "Red"){
+					//console.log(color33);
+					//console.log(color42);
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+	//legal moves from pos35
+		if(drag_rIndex == 5 && drag_cIndex == 3){
+			console.log("pos 35");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos14").hasChildNodes();
+			//console.log(test);
+			
+			var pos35 = document.getElementById("pos35");
+			var pos17 = document.getElementById("pos17");
+			var pos26 = document.getElementById("pos26");
+			var pos21 = document.getElementById("pos21");
+			var pos28 = document.getElementById("pos28");
+			var pos42 = document.getElementById("pos42");
+			var pos49 = document.getElementById("pos49");
+			var pos44 = document.getElementById("pos44");
+			var pos53 = document.getElementById("pos53");
+			
+			var child35 = pos35.firstElementChild;
+			var child17 = pos17.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child42 = pos42.firstElementChild;
+			var child49 = pos49.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			
+			var king = child35.className;
+			
+			var test35 = pos35.contains(child35);
+			var test17 = pos17.contains(child17);
+			var test26 = pos26.contains(child26);
+			var test21 = pos21.contains(child21);
+			var test28 = pos28.contains(child28);
+			var test42 = pos42.contains(child42);
+			var test49 = pos49.contains(child49);
+			var test44 = pos44.contains(child44);
+			var test53 = pos53.contains(child53);
+			//console.log(test17);
+			//console.log(test26);
+			
+			
+			if(test35 == true && test26 == false || test35 == true && test28 == false){
+				var color35 = pos35.firstElementChild.alt;
+				//console.log("test26 & 28");
+				if(color35 == "Blue" || king == "redKing"){
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos49").setAttribute("ondragover", " ");
+					document.getElementById("pos49").setAttribute("ondrop", " ");
+					document.getElementById("pos53").setAttribute("ondragover", " ");
+					document.getElementById("pos53").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test35 == true && test42 == false || test35 == true && test44 == false){
+				var color35 = pos35.firstElementChild.alt;
+				//console.log("test42 & 44");
+
+				if(color35 == "Red" || king == "blueKing"){
+						document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos26").setAttribute("ondragover", " ");
+						document.getElementById("pos26").setAttribute("ondrop", " ");
+						document.getElementById("pos28").setAttribute("ondragover", " ");
+						document.getElementById("pos28").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test35 == true && test26 == true){
+			
+				var color35 = pos35.firstElementChild.alt;
+				var color26 = pos26.firstElementChild.alt;
+			
+				//console.log(color35);
+				//console.log(color26);
+			
+				if(color35 == "Blue" && color26 == "Red" || king == "redKing" && color26 == "Blue"){
+					//console.log(color35);
+					//console.log(color26);
+					document.getElementById("pos17").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos17").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+
+			if(test35 == true && test28 == true){
+			
+				var color35 = pos35.firstElementChild.alt;
+				var color28 = pos28.firstElementChild.alt;
+			
+				//console.log(color35);
+				//console.log(color28);
+			
+				if(color35 == "Blue" && color28 == "Red" || king == "redKing" && color28 == "Blue"){
+					//console.log(color35);
+					//console.log(color28);
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+
+			if(test35 == true && test42 == true){
+			
+				var color35 = pos35.firstElementChild.alt;
+				var color42 = pos42.firstElementChild.alt;
+			
+				//console.log(color35);
+				//console.log(color42);
+			
+				if(color35 == "Red" && color42 == "Blue" || king == "blueKing" && color42 == "Red"){
+					//console.log(color35);
+					//console.log(color42);
+					document.getElementById("pos49").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos49").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+			}
+		
+		if(test35 == true && test44 == true){
+			
+				var color35 = pos35.firstElementChild.alt;
+				var color44 = pos44.firstElementChild.alt;
+			
+				//console.log(color35);
+				//console.log(color44);
+			
+				if(color35 == "Red" && color44 == "Blue"  || king == "blueKing" && color44 == "Red"){
+					//console.log(color35);
+					//console.log(color44);
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+		}
+	}
+
+	//legal moves from pos37
+		if(drag_rIndex == 5 && drag_cIndex == 5){
+			console.log("pos 37");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos23").hasChildNodes();
+			//console.log(test);
+			
+			var pos37 = document.getElementById("pos37");
+			var pos19 = document.getElementById("pos19");
+			var pos28 = document.getElementById("pos28");
+			var pos23 = document.getElementById("pos23");
+			var pos30 = document.getElementById("pos30");
+			var pos44 = document.getElementById("pos44");
+			var pos51 = document.getElementById("pos51");
+			var pos46 = document.getElementById("pos46");
+			var pos55 = document.getElementById("pos55");
+			
+			var child37 = pos37.firstElementChild;
+			var child19 = pos19.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child23 = pos23.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			
+			var king = child37.className;
+			
+			var test37 = pos37.contains(child37);
+			var test19 = pos19.contains(child19);
+			var test28 = pos28.contains(child28);
+			var test23 = pos23.contains(child23);
+			var test30 = pos30.contains(child30);
+			var test44 = pos44.contains(child44);
+			var test51 = pos51.contains(child51);
+			var test46 = pos46.contains(child46);
+			var test55 = pos55.contains(child55);
+			//console.log(test1);
+			//console.log(test28);
+			
+			
+			if(test37 == true && test28 == false || test37 == true && test30 == false){
+				var color37 = pos37.firstElementChild.alt;
+				//console.log("test28 & 30");
+				if(color37 == "Blue" || king == "redKing"){
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos51").setAttribute("ondragover", " ");
+					document.getElementById("pos51").setAttribute("ondrop", " ");
+					document.getElementById("pos55").setAttribute("ondragover", " ");
+					document.getElementById("pos55").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test37 == true && test44 == false || test37 == true && test46 == false){
+				var color37 = pos37.firstElementChild.alt;
+				//console.log("test44 & 46");
+
+				if(color37 == "Red" || king == "blueKing"){
+						document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos28").setAttribute("ondragover", " ");
+						document.getElementById("pos28").setAttribute("ondrop", " ");
+						document.getElementById("pos30").setAttribute("ondragover", " ");
+						document.getElementById("pos30").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test37 == true && test28 == true){
+			
+				var color37 = pos37.firstElementChild.alt;
+				var color28 = pos28.firstElementChild.alt;
+			
+				//console.log(color37);
+				//console.log(color28);
+			
+				if(color37 == "Blue" && color28 == "Red" || king == "redKing" && color28 == "Blue"){
+					//console.log(color37);
+					//console.log(color28);
+					document.getElementById("pos19").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos19").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+	
+			if(test37 == true && test30 == true){
+			
+				var color37 = pos37.firstElementChild.alt;
+				var color30 = pos30.firstElementChild.alt;
+			
+				//console.log(color37);
+				//console.log(color30);
+			
+				if(color37 == "Blue" && color30 == "Red" || king == "redKing" && color30 == "Blue"){
+					//console.log(color37);
+					//console.log(color30);
+					document.getElementById("pos23").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos23").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+
+			if(test37 == true && test44 == true){
+			
+				var color37 = pos37.firstElementChild.alt;
+				var color44 = pos44.firstElementChild.alt;
+			
+				//console.log(color37);
+				//console.log(color44);
+			
+				if(color37 == "Red" && color44 == "Blue" || king == "blueKing" && color44 == "Red"){
+					//console.log(color37);
+					//console.log(color44);
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test37 == true && test46 == true){
+			
+				var color37 = pos37.firstElementChild.alt;
+				var color46 = pos46.firstElementChild.alt;
+			
+				//console.log(color37);
+				//console.log(color46);
+			
+				if(color37 == "Red" && color46 == "Blue" || king == "blueKing" && color46 == "Red"){
+					//console.log(color37);
+					//console.log(color46);
+					document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+		}
+	}
+
+	//legal moves from pos39
+		if(drag_rIndex == 5 && drag_cIndex == 7){
+			console.log("pos 39");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos30").hasChildNodes();
+			//console.log(test);
+			
+			var pos39 = document.getElementById("pos39");
+			var pos21 = document.getElementById("pos21");
+			var pos30 = document.getElementById("pos30");
+			//var pos7 = document.getElementById("pos7");
+			var pos32 = document.getElementById("pos32");
+			var pos46 = document.getElementById("pos46");
+			var pos53 = document.getElementById("pos53");
+			var pos48 = document.getElementById("pos48");
+			//var pos39 = document.getElementById("pos39");
+			
+			var child39 = pos39.firstElementChild;
+			var child21 = pos21.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			//var child7 = pos7.firstElementChild;
+			var child32 = pos32.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			var child48 = pos48.firstElementChild;
+			//var child39 = pos39.firstElementChild;
+			
+			var king = child39.className;
+			
+			var test39 = pos39.contains(child39);
+			var test21 = pos21.contains(child21);
+			var test30 = pos30.contains(child30);
+			//var test7 = pos7.contains(child7);
+			var test32 = pos32.contains(child32);
+			var test46 = pos46.contains(child46);
+			var test53 = pos53.contains(child53);
+			var test48 = pos48.contains(child48);
+			//var test39 = pos39.contains(child39);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test39 == true && test30 == false || test39 == true && test32 == false){
+				var color39 = pos39.firstElementChild.alt;
+				//console.log("test30 & 32");
+				if(color39 == "Blue" || king == "redKing"){
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos32").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos32").setAttribute("ondrop", "drop(event)");
+					
+					/*document.getElementById("pos53").setAttribute("ondragover", " ");
+					document.getElementById("pos53").setAttribute("ondrop", " ");
+					document.getElementById("pos39").setAttribute("ondragover", " ");
+					document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test39 == true && test46 == false || test39 == true && test48 == false){
+				var color39 = pos39.firstElementChild.alt;
+				//console.log("test46 & 48");
+
+				if(color39 == "Red" || king == "blueKing"){
+						document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos48").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos48").setAttribute("ondrop", "drop(event)");
+						
+						/*document.getElementById("pos30").setAttribute("ondragover", " ");
+						document.getElementById("pos30").setAttribute("ondrop", " ");
+						document.getElementById("pos32").setAttribute("ondragover", " ");
+						document.getElementById("pos32").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			if(test39 == true && test30 == true){
+			
+				var color39 = pos39.firstElementChild.alt;
+				var color30 = pos30.firstElementChild.alt;
+			
+				//console.log(color39);
+				//console.log(color30);
+			
+				if(color39 == "Blue" && color30 == "Red" || king == "redKing" && color30 == "Blue"){
+					//console.log(color39);
+					//console.log(color30);
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			/*if(test39 == true && test32 == true){
+			
+				var color39 = pos39.firstElementChild.alt;
+				var color32 = pos32.firstElementChild.alt;
+			
+				//console.log(color39);
+				//console.log(color32);
+			
+				if(color39 == "Blue" && color32 == "Red"){
+					//console.log(color39);
+					//console.log(color32);
+					document.getElementById("pos9").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos9").setAttribute("ondrop", "drop(event)");
+				}else if(color39 == "Red"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}
+				else{
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+			}*/
+				
+			
+			if(test39 == true && test46 == true){
+			
+				var color39 = pos39.firstElementChild.alt;
+				var color46 = pos46.firstElementChild.alt;
+			
+				//console.log(color39);
+				//console.log(color46);
+			
+				if(color39 == "Red" && color46 == "Blue" || king == "blueKing" && color46 == "Red"){
+					//console.log(color39);
+					//console.log(color46);
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		/*if(test39 == true && test48 == true){
+			
+				var color21 = pos21.firstElementChild.alt;
+				var color46 = pos46.firstElementChild.alt;
+			
+				//console.log(color21);
+				//console.log(color46);
+			
+				if(color21 == "Red" && color46 == "Blue"){
+					//console.log(color21);
+					//console.log(color46);
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}else if(color32 == "Blue"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					
+				}else{
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+		
+		}
+
+		//legal moves from pos42
+		if(drag_rIndex == 6 && drag_cIndex == 2){
+			console.log("pos 42");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos35").hasChildNodes();
+			//console.log(test);
+			
+			var pos42 = document.getElementById("pos42");
+			var pos28 = document.getElementById("pos28");
+			var pos35 = document.getElementById("pos35");
+			//var pos7 = document.getElementById("pos7");
+			var pos33 = document.getElementById("pos33");
+			var pos51 = document.getElementById("pos51");
+			var pos60 = document.getElementById("pos60");
+			var pos49 = document.getElementById("pos49");
+			//var pos42 = document.getElementById("pos42");
+			
+			var child42 = pos42.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			//var child7 = pos7.firstElementChild;
+			var child33 = pos33.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			var child60 = pos60.firstElementChild;
+			var child49 = pos49.firstElementChild;
+			//var child42 = pos42.firstElementChild;
+			
+			var king = child42.className;
+			
+			var test42 = pos42.contains(child42);
+			var test28 = pos28.contains(child28);
+			var test35 = pos35.contains(child35);
+			//var test7 = pos7.contains(child7);
+			var test33 = pos33.contains(child33);
+			var test51 = pos51.contains(child51);
+			var test60 = pos60.contains(child60);
+			var test49 = pos49.contains(child49);
+			//var test42 = pos42.contains(child42);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test42 == true && test35 == false || test42 == true && test33 == false){
+				var color42 = pos42.firstElementChild.alt;
+				//console.log("test35 & 33");
+				if(color42 == "Blue" || king == "redKing"){
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos33").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos33").setAttribute("ondrop", "drop(event)");
+					
+					/*document.getElementById("pos60").setAttribute("ondragover", " ");
+					document.getElementById("pos60").setAttribute("ondrop", " ");
+					document.getElementById("pos42").setAttribute("ondragover", " ");
+					document.getElementById("pos42").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test42 == true && test51 == false || test42 == true && test49 == false){
+				var color42 = pos42.firstElementChild.alt;
+				//console.log("test51 & 49");
+
+				if(color42 == "Red" || king == "blueKing"){
+						document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos49").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos49").setAttribute("ondrop", "drop(event)");
+						
+						/*document.getElementById("pos35").setAttribute("ondragover", " ");
+						document.getElementById("pos35").setAttribute("ondrop", " ");
+						document.getElementById("pos33").setAttribute("ondragover", " ");
+						document.getElementById("pos33").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test42 == true && test35 == true){
+			
+				var color42 = pos42.firstElementChild.alt;
+				var color35 = pos35.firstElementChild.alt;
+			
+				//console.log(color42);
+				//console.log(color35);
+			
+				if(color42 == "Blue" && color35 == "Red" || king == "redKing" && color35 == "Blue"){
+					//console.log(color42);
+					//console.log(color35);
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			/*if(test42 == true && test33 == true){
+			
+				var color42 = pos42.firstElementChild.alt;
+				var color33 = pos33.firstElementChild.alt;
+			
+				//console.log(color42);
+				//console.log(color33);
+			
+				if(color42 == "Blue" && color33 == "Red"){
+					//console.log(color42);
+					//console.log(color33);
+					document.getElementById("pos9").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos9").setAttribute("ondrop", "drop(event)");
+				}else if(color42 == "Red"){
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos7").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos7").setAttribute("ondrop", "drop(event)");
+				}
+				else{
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+			}*/
+				
+			
+			if(test42 == true && test51 == true){
+			
+				var color42 = pos42.firstElementChild.alt;
+				var color51 = pos51.firstElementChild.alt;
+			
+				//console.log(color42);
+				//console.log(color51);
+			
+				if(color42 == "Red" && color51 == "Blue" || king == "blueKing" && color51 == "Red"){
+					//console.log(color42);
+					//console.log(color51);
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		/*if(test42 == true && test49 == true){
+			
+				var color28 = pos28.firstElementChild.alt;
+				var color51 = pos51.firstElementChild.alt;
+			
+				//console.log(color28);
+				//console.log(color51);
+			
+				if(color28 == "Red" && color51 == "Blue"){
+					//console.log(color28);
+					//console.log(color51);
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}else if(color33 == "Blue"){
+					document.getElementById("pos10").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos10").setAttribute("ondrop", "drop(event)");
+					
+				}else{
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else{
+				document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+				document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+			}*/
+			
+		
+		}
+
+		//legal moves from pos44
+		if(drag_rIndex == 6 && drag_cIndex == 4){
+			console.log("pos 44");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos37").hasChildNodes();
+			//console.log(test);
+			
+			var pos44 = document.getElementById("pos44");
+			var pos26 = document.getElementById("pos26");
+			var pos35 = document.getElementById("pos35");
+			var pos30 = document.getElementById("pos30");
+			var pos37 = document.getElementById("pos37");
+			var pos51 = document.getElementById("pos51");
+			var pos58 = document.getElementById("pos58");
+			var pos53 = document.getElementById("pos53");
+			var pos62 = document.getElementById("pos62");
+			
+			var child44 = pos44.firstElementChild;
+			var child26 = pos26.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			var child30 = pos30.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			var child58 = pos58.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			var child62 = pos62.firstElementChild;
+			
+			var king = child44.className;
+			
+			var test44 = pos44.contains(child44);
+			var test26 = pos26.contains(child26);
+			var test35 = pos35.contains(child35);
+			var test30 = pos30.contains(child30);
+			var test37 = pos37.contains(child37);
+			var test51 = pos51.contains(child51);
+			var test58 = pos58.contains(child58);
+			var test53 = pos53.contains(child53);
+			var test62 = pos62.contains(child62);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test44 == true && test35 == false || test44 == true && test37 == false){
+				var color44 = pos44.firstElementChild.alt;
+				//console.log("test35 & 37");
+				if(color44 == "Blue" || king == "redKing"){
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos58").setAttribute("ondragover", " ");
+					document.getElementById("pos58").setAttribute("ondrop", " ");
+					document.getElementById("pos62").setAttribute("ondragover", " ");
+					document.getElementById("pos62").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test44 == true && test51 == false || test44 == true && test53 == false){
+				var color44 = pos44.firstElementChild.alt;
+				//console.log("test51 & 53");
+
+				if(color44 == "Red" || king == "blueKing"){
+						document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos35").setAttribute("ondragover", " ");
+						document.getElementById("pos35").setAttribute("ondrop", " ");
+						document.getElementById("pos37").setAttribute("ondragover", " ");
+						document.getElementById("pos37").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test44 == true && test35 == true){
+			
+				var color44 = pos44.firstElementChild.alt;
+				var color35 = pos35.firstElementChild.alt;
+			
+				//console.log(color44);
+				//console.log(color35);
+			
+				if(color44 == "Blue" && color35 == "Red"|| king == "redKing" && color35 == "Blue"){
+					//console.log(color44);
+					//console.log(color35);
+					document.getElementById("pos26").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos26").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test44 == true && test37 == true){
+			
+				var color44 = pos44.firstElementChild.alt;
+				var color37 = pos37.firstElementChild.alt;
+			
+				//console.log(color44);
+				//console.log(color37);
+			
+				if(color44 == "Blue" && color37 == "Red" || king == "redKing" && color37 == "Blue"){
+					//console.log(color44);
+					//console.log(color37);
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+				
+			
+			if(test44 == true && test51 == true){
+			
+				var color44 = pos44.firstElementChild.alt;
+				var color51 = pos51.firstElementChild.alt;
+			
+				//console.log(color44);
+				//console.log(color51);
+			
+				if(color44 == "Red" && color51 == "Blue" || king == "blueKing" && color51 == "Red"){
+					//console.log(color44);
+					//console.log(color51);
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test44 == true && test53 == true){
+			
+				var color44 = pos44.firstElementChild.alt;
+				var color53 = pos53.firstElementChild.alt;
+			
+				//console.log(color44);
+				//console.log(color53);
+			
+				if(color44 == "Red" && color53 == "Blue" || king == "blueKing" && color53 == "Red"){
+					//console.log(color44);
+					//console.log(color53);
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+				}
+	
+		}
+	}
+
+		//legal moves from pos46
+		if(drag_rIndex == 6 && drag_cIndex == 6){
+			console.log("pos 46");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos32").hasChildNodes();
+			//console.log(test);
+			
+			var pos46 = document.getElementById("pos46");
+			var pos28 = document.getElementById("pos28");
+			var pos37 = document.getElementById("pos37");
+			var pos32 = document.getElementById("pos32");
+			var pos39 = document.getElementById("pos39");
+			var pos53 = document.getElementById("pos53");
+			var pos60 = document.getElementById("pos60");
+			var pos55 = document.getElementById("pos55");
+			var pos64 = document.getElementById("pos64");
+			
+			var child46 = pos46.firstElementChild;
+			var child28 = pos28.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child32 = pos32.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			var child60 = pos60.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			var child64 = pos64.firstElementChild;
+			
+			var king = child46.className;
+			
+			var test46 = pos46.contains(child46);
+			var test28 = pos28.contains(child28);
+			var test37 = pos37.contains(child37);
+			var test32 = pos32.contains(child32);
+			var test39 = pos39.contains(child39);
+			var test53 = pos53.contains(child53);
+			var test60 = pos60.contains(child60);
+			var test55 = pos55.contains(child55);
+			var test64 = pos64.contains(child64);
+			//console.log(test1);
+			//console.log(test37);
+			
+			
+			if(test46 == true && test37 == false || test46 == true && test39 == false){
+				var color46 = pos46.firstElementChild.alt;
+				//console.log("test37 & 39");
+				if(color46 == "Blue" || king == "redKing"){
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos60").setAttribute("ondragover", " ");
+					document.getElementById("pos60").setAttribute("ondrop", " ");
+					document.getElementById("pos64").setAttribute("ondragover", " ");
+					document.getElementById("pos64").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test46 == true && test53 == false || test46 == true && test55 == false){
+				var color46 = pos46.firstElementChild.alt;
+				//console.log("test53 & 55");
+
+				if(color46 == "Red" || king == "blueKing"){
+						document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+						document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos37").setAttribute("ondragover", " ");
+						document.getElementById("pos37").setAttribute("ondrop", " ");
+						document.getElementById("pos39").setAttribute("ondragover", " ");
+						document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}		
+			
+			
+			if(test46 == true && test37 == true){
+			
+				var color46 = pos46.firstElementChild.alt;
+				var color37 = pos37.firstElementChild.alt;
+			
+				//console.log(color46);
+				//console.log(color37);
+			
+				if(color46 == "Blue" && color37 == "Red" || king == "redKing" && color37 == "Blue"){
+					//console.log(color46);
+					//console.log(color37);
+					document.getElementById("pos28").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos28").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			
+			if(test46 == true && test39 == true){
+			
+				var color46 = pos46.firstElementChild.alt;
+				var color39 = pos39.firstElementChild.alt;
+			
+				//console.log(color46);
+				//console.log(color39);
+			
+				if(color46 == "Blue" && color39 == "Red" || king == "redKing" && color39 == "Blue"){
+					//console.log(color46);
+					//console.log(color39);
+					document.getElementById("pos32").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos32").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+				
+			
+			if(test46 == true && test53 == true){
+			
+				var color46 = pos46.firstElementChild.alt;
+				var color53 = pos53.firstElementChild.alt;
+			
+				//console.log(color46);
+				//console.log(color53);
+			
+				if(color46 == "Red" && color53 == "Blue" || king == "blueKing" && color53 == "Red"){
+					//console.log(color46);
+					//console.log(color53);
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+		
+		if(test46 == true && test55 == true){
+			
+				var color46 = pos46.firstElementChild.alt;
+				var color55 = pos55.firstElementChild.alt;
+			
+				//console.log(color46);
+				//console.log(color55);
+			
+				if(color46 == "Red" && color55 == "Blue"  || king == "blueKing" && color55 == "Red"){
+					//console.log(color46);
+					//console.log(color55);
+					document.getElementById("pos64").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos64").setAttribute("ondrop", "drop(event)");
+				}
+			
+		
+		}
+	}
+
+//legal moves from pos48
+		if(drag_rIndex == 6 && drag_cIndex == 8){
+			console.log("pos 48");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos30").hasChildNodes();
+			//console.log(test);
+			
+			var pos30 = document.getElementById("pos30");
+			var pos39 = document.getElementById("pos39");
+			var pos48 = document.getElementById("pos48");
+			var pos55 = document.getElementById("pos55");
+			var pos62 = document.getElementById("pos62");
+			
+			var child30 = pos30.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			var child48 = pos48.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			var child62 = pos62.firstElementChild;
+			
+			var king = child48.className;
+			
+			var test30 = pos30.contains(child30);
+			var test39 = pos39.contains(child39);
+			var test48 = pos48.contains(child48);
+			var test55 = pos55.contains(child55);
+			var test62 = pos62.contains(child62);
+			//console.log(test1);
+			//console.log(test39);
+			
+			
+			if(test48 == true && test39 == false){
+				var color48 = pos48.firstElementChild.alt;
+				//console.log("test39");
+				if(color48 == "Blue" || king == "redKing"){
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos62").setAttribute("ondragover", " ");
+					document.getElementById("pos62").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test48 == true && test55 == false){
+				var color48 = pos48.firstElementChild.alt;
+				//console.log("test55");
+
+				if(color48 == "Red" || king == "blueKing"){
+						document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+						/*document.getElementById("pos39").setAttribute("ondragover", " ");
+						document.getElementById("pos39").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			
+			/*if(test30 == true && test21 == false || test30 == true && test39 == false){
+				
+				var color30 = pos30.firstElementChild.alt;
+				
+				if(color30 == "Red"){
+					document.getElementById("pos21").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos21").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}*/
+			
+			
+			
+			if(test48 == true && test39 == true){
+			
+				var color48 = pos48.firstElementChild.alt;
+				var color39 = pos39.firstElementChild.alt;
+			
+				//console.log(color48);
+				//console.log(color39);
+			
+				if(color48 == "Blue" && color39 == "Red" || king == "redKing" && color39 == "Blue"){
+					//console.log(color48);
+					//console.log(color39);
+					document.getElementById("pos30").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos30").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos55").setAttribute("ondragover", " ");
+					document.getElementById("pos55").setAttribute("ondrop", " ");
+					document.getElementById("pos62").setAttribute("ondragover", " ");
+					document.getElementById("pos62").setAttribute("ondrop", " ");*/
+				}
+			
+			}
+			
+			if(test48 == true && test55 == true){
+			
+				var color48 = pos48.firstElementChild.alt;
+				var color55 = pos55.firstElementChild.alt;
+			
+				//console.log(color48);
+				//console.log(color55);
+			
+				if(color48 == "Red" && color55 == "Blue" || king == "blueKing" && color55 == "Red"){
+					//console.log(color48);
+					//console.log(color55);
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+		//legal moves from pos49
+		if(drag_rIndex == 7 && drag_cIndex == 1){
+			console.log("pos 49");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos49").hasChildNodes();
+			//console.log(test);
+			
+			
+			var pos58 = document.getElementById("pos58");
+			var pos49 = document.getElementById("pos49");
+			var pos42 = document.getElementById("pos42");
+			var pos35 = document.getElementById("pos35");
+			
+			
+			var child58 = pos58.firstElementChild;
+			var child49 = pos49.firstElementChild;
+			var child42 = pos42.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			
+			var king = child49.className;
+					
+			var test58 = pos58.contains(child58);
+			var test49 = pos49.contains(child49);
+			var test42 = pos42.contains(child42);
+			var test35 = pos35.contains(child35);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test49 == true && test58 == false){
+				var color49 = pos49.firstElementChild.alt;
+				//console.log("test58");
+				if(color49 == "Red" || king == "blueKing"){
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test49 == true && test42 == false){
+				
+				var color49 = pos49.firstElementChild.alt;
+				
+				if(color49 == "Blue"  || king == "redKing"){
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+
+			if(test49 == true && test42 == true){
+			
+				var color49 = pos49.firstElementChild.alt;
+				var color42 = pos42.firstElementChild.alt;
+			
+				//console.log(color49);
+				//console.log(color42);
+			
+				if(color49 == "Blue" && color42 == "Red" || king == "redKing" && color42 == "Blue"){
+					//console.log(color49);
+					//console.log(color42);
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+				}else if(color49 == "Red" || king == "blueKing"){
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+				}else if(color49 == "Blue"  || king == "redKing"){
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+		
+			
+		
+		}
+
+		//legal moves from pos51
+		if(drag_rIndex == 7 && drag_cIndex == 3){
+			console.log("pos 51");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos51").hasChildNodes();
+			//console.log(test);
+			
+			var pos60 = document.getElementById("pos60");
+			var pos58 = document.getElementById("pos58");
+			var pos51 = document.getElementById("pos51");
+			var pos44 = document.getElementById("pos44");
+			var pos37 = document.getElementById("pos37");
+			var pos42 = document.getElementById("pos42");
+			var pos33 = document.getElementById("pos33");
+			
+			var child60 = pos60.firstElementChild;
+			var child58 = pos58.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			var child42 = pos42.firstElementChild;
+			var child33 = pos33.firstElementChild;
+			
+			var king = child51.className;
+			
+			var test60 = pos60.contains(child60);
+			var test58 = pos58.contains(child58);
+			var test51 = pos51.contains(child51);
+			var test44 = pos44.contains(child44);
+			var test37 = pos37.contains(child37);
+			var test42 = pos42.contains(child42);
+			var test33 = pos33.contains(child33);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test51 == true && test60 == false){
+				var color51 = pos51.firstElementChild.alt;
+				//console.log("test60");
+				if(color51 == "Red" || king == "blueKing"){
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos42").setAttribute("ondragover", " ");
+					document.getElementById("pos42").setAttribute("ondrop", " ");
+					document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test51 == true && test58 == false){
+				var color51 = pos51.firstElementChild.alt;
+								//console.log("test58");
+
+				if(color51 == "Red" || king == "blueKing"){
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos42").setAttribute("ondragover", " ");
+					document.getElementById("pos42").setAttribute("ondrop", " ");
+					document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			
+			if(test51 == true && test44 == false || test51 == true && test42 == false){
+				
+				var color51 = pos51.firstElementChild.alt;
+				
+				if(color51 == "Blue" || king == "redKing"){
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos58").setAttribute("ondragover", " ");
+					document.getElementById("pos58").setAttribute("ondrop", " ");
+					document.getElementById("pos60").setAttribute("ondragover", " ");
+					document.getElementById("pos60").setAttribute("ondrop", " ");*/
+				}
+				
+			}
+
+			if(test51 == true && test44 == true){
+			
+				var color51 = pos51.firstElementChild.alt;
+				var color44 = pos44.firstElementChild.alt;
+			
+				//console.log(color51);
+				//console.log(color44);
+			
+				if(color51 == "Blue" && color44 == "Red" || king == "redKing" && color44 == "Blue"){
+					//console.log(color51);
+					//console.log(color44);
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+				}else if(color51 == "Red" || king == "blueKing"){
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			if(test51 == true && test42 == true){
+			
+				var color51 = pos51.firstElementChild.alt;
+				var color42 = pos42.firstElementChild.alt;
+			
+				//console.log(color51);
+				//console.log(color42);
+			
+				if(color51 == "Blue" && color42 == "Red" || king == "redKing" && color42 == "Blue"){
+					//console.log(color51);
+					//console.log(color42);
+					document.getElementById("pos33").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos33").setAttribute("ondrop", "drop(event)");
+				}else if(color51 == "Red" || king == "blueKing"){
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos58").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos58").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+		
+		}
+
+		//legal moves from pos53
+		if(drag_rIndex == 7 && drag_cIndex == 5){
+			console.log("pos 53");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos53").hasChildNodes();
+			//console.log(test);
+			
+			var pos62 = document.getElementById("pos62");
+			var pos60 = document.getElementById("pos60");
+			var pos53 = document.getElementById("pos53");
+			var pos46 = document.getElementById("pos46");
+			var pos39 = document.getElementById("pos39");
+			var pos44 = document.getElementById("pos44");
+			var pos35 = document.getElementById("pos35");
+			
+			var child62 = pos62.firstElementChild;
+			var child60 = pos60.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			var child39 = pos39.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child35 = pos35.firstElementChild;
+			
+			var king = child53.className;
+			
+			var test62 = pos62.contains(child62);
+			var test60 = pos60.contains(child60);
+			var test53 = pos53.contains(child53);
+			var test46 = pos46.contains(child46);
+			var test39 = pos39.contains(child39);
+			var test44 = pos44.contains(child44);
+			var test35 = pos35.contains(child35);
+			//console.log(test1);
+			//console.log(test10);
+			
+			
+			if(test53 == true && test62 == false){
+				var color53 = pos53.firstElementChild.alt;
+				//console.log("test62");
+				if(color53 == "Red" || king == "blueKing"){
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");
+					document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			if(test53 == true && test60 == false){
+				var color53 = pos53.firstElementChild.alt;
+								//console.log("test60");
+
+				if(color53 == "Red" || king == "blueKing"){
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos44").setAttribute("ondragover", " ");
+					document.getElementById("pos44").setAttribute("ondrop", " ");
+					document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+
+				}
+				
+			}
+			
+			if(test53 == true && test46 == false || test53 == true && test44 == false){
+				
+				var color53 = pos53.firstElementChild.alt;
+				
+				if(color53 == "Blue" || king == "redKing"){
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos60").setAttribute("ondragover", " ");
+					document.getElementById("pos60").setAttribute("ondrop", " ");
+					document.getElementById("pos62").setAttribute("ondragover", " ");
+					document.getElementById("pos62").setAttribute("ondrop", " ");*/
+				}
+				
+			}
+
+			if(test53 == true && test46 == true){
+			
+				var color53 = pos53.firstElementChild.alt;
+				var color46 = pos46.firstElementChild.alt;
+			
+				//console.log(color53);
+				//console.log(color46);
+			
+				if(color53 == "Blue" && color46 == "Red" || king == "redKing" && color46 == "Blue"){
+					//console.log(color53);
+					//console.log(color46);
+					document.getElementById("pos39").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos39").setAttribute("ondrop", "drop(event)");
+				}else if(color53 == "Red" || king == "blueKing" ){
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+			if(test53 == true && test44 == true){
+			
+				var color53 = pos53.firstElementChild.alt;
+				var color44 = pos44.firstElementChild.alt;
+			
+				//console.log(color53);
+				//console.log(color44);
+			
+				if(color53 == "Blue" && color44 == "Red" || king == "redKing" && color44 == "Blue"){
+					//console.log(color53);
+					//console.log(color44);
+					document.getElementById("pos35").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos35").setAttribute("ondrop", "drop(event)");
+				}else if(color53 == "Red" || king == "blueKing"){
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos60").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos60").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}
+			
+		
+		}
+
+		//legal moves from pos55
+		if(drag_rIndex == 7 && drag_cIndex == 7){
+			console.log("pos 55");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos55").hasChildNodes();
+			//console.log(test);
+			
+			var pos64 = document.getElementById("pos64");
+			var pos62 = document.getElementById("pos62");
+			var pos55 = document.getElementById("pos55");
+			var pos48 = document.getElementById("pos48");
+			var pos46 = document.getElementById("pos46");
+			var pos37 = document.getElementById("pos37");
+			
+			var child64 = pos64.firstElementChild;
+			var child62 = pos62.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			var child48 = pos48.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			var child37 = pos37.firstElementChild;
+			
+			var king = child55.className;
+			
+			var test64 = pos64.contains(child64);
+			var test62 = pos62.contains(child62);
+			var test55 = pos55.contains(child55);
+			var test48 = pos48.contains(child48);
+			var test46 = pos46.contains(child46);
+			var test37 = pos37.contains(child37);
+			//console.log(test64);
+			//console.log(test55);
+
+			if(test55 == true && test64 == false){
+				var color55 = pos55.firstElementChild.alt;
+				//console.log("test64");
+				if(color55 == "Red" || king == "blueKing"){
+					document.getElementById("pos64").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos64").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			if(test55 == true && test62 == false){
+				var color55 = pos55.firstElementChild.alt;
+				//console.log("test62");
+
+				if(color55 == "Red" || king == "blueKing"){
+						document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+						document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+
+				}
+				
+			}
+			
+			
+			if(test55 == true && test48 == false){
+				
+				var color55 = pos55.firstElementChild.alt;
+				
+				if(color55 == "Blue" || king == "redKing"){
+					document.getElementById("pos48").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos48").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			if(test55 == true && test46 == false){
+				
+				var color55 = pos55.firstElementChild.alt;
+				
+				if(color55 == "Blue" || king == "redKing"){
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+				}
+				
+			}
+			
+			if(test55 == true && test46 == true){
+			
+				var color55 = pos55.firstElementChild.alt;
+				var color46 = pos46.firstElementChild.alt;
+			
+				//console.log(color55);
+				//console.log(color46);
+			
+				if(color55 == "Blue" && color46 == "Red" || king == "redKing" && color46 == "Blue"){
+					//console.log(color55);
+					//console.log(color46);
+					document.getElementById("pos37").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos37").setAttribute("ondrop", "drop(event)");
+				}else if(color55 == "Red" || king == "blueKing"){
+					document.getElementById("pos64").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos64").setAttribute("ondrop", "drop(event)");
+					document.getElementById("pos62").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos62").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos48").setAttribute("ondragover", " ");
+					document.getElementById("pos48").setAttribute("ondrop", " ");
+					document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+				}
+			
+			}
+			
+			
+			
+		
+		}
+
+		//legal moves from pos58
+		if(drag_rIndex == 8 && drag_cIndex == 2){
+			console.log("pos 58");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos58 = document.getElementById("pos58");
+			var pos51 = document.getElementById("pos51");
+			var pos44 = document.getElementById("pos44");
+			var pos49 = document.getElementById("pos49");
+			
+			var child58 = pos58.firstElementChild;
+			var child51 = pos51.firstElementChild;
+			var child44 = pos44.firstElementChild;
+			var child49 = pos49.firstElementChild;
+			
+			var king = child58.className;
+			
+			var test58 = pos58.contains(child58);
+			var test51 = pos51.contains(child51);
+			var test44 = pos44.contains(child44);
+			var test49 = pos49.contains(child49);
+			//console.log(test1);
+			//console.log(test10);
+			
+			if(test58 == true && test51 == true){
+			
+				var color58 = pos58.firstElementChild.alt;
+				var color51 = pos51.firstElementChild.alt;
+			
+				//console.log(color58);
+				//console.log(color51);
+			
+				if(color58 == "Blue" && color51 == "Red" || king == "redKing" && color51 == "Blue"){
+					//console.log(color58);
+					//console.log(color51);
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+				}/*else{
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}
+			
+			if(test58 == true && test49 == false){
+				var color58 = pos58.firstElementChild.alt;
+				
+				if(color58 == "Blue" || king == "redKing"){
+					document.getElementById("pos49").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos49").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test58 == true && test51 == false){
+				var color58 = pos58.firstElementChild.alt;
+				
+				if(color58 == "Blue" || king == "redKing"){
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+//legal moves from pos60
+		if(drag_rIndex == 8 && drag_cIndex == 4){
+			console.log("pos 60");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos60 = document.getElementById("pos60");
+			var pos53 = document.getElementById("pos53");
+			var pos46 = document.getElementById("pos46");
+			var pos51 = document.getElementById("pos51");
+			var pos42 = document.getElementById("pos42");
+			
+			var child60 = pos60.firstElementChild;
+			var child53 = pos53.firstElementChild;
+			var child46 = pos46.firstElementChild;
+			var child51 = pos51.firstElementChild;	
+			var child42 = pos42.firstElementChild;
+			
+			var king = child60.className;
+
+			
+			var test60 = pos60.contains(child60);
+			var test53 = pos53.contains(child53);
+			var test46 = pos46.contains(child46);
+			var test51 = pos51.contains(child51);	
+			var test42 = pos42.contains(child42);
+
+			//console.log(test60);
+			//console.log(test10);
+			
+			if(test60 == true && test53 == true){
+			
+				var color60 = pos60.firstElementChild.alt;
+				var color53 = pos53.firstElementChild.alt;
+			
+				//console.log(color60);
+				//console.log(color53);
+			
+				if(color60 == "Blue" && color53 == "Red" || king == "redKing" && color53 == "Blue"){
+					//console.log(color60);
+					//console.log(color53);
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+				}/*else if(color60 == "Blue"){
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}
+			
+			if(test60 == true && test51 == true){
+			
+				var color60 = pos60.firstElementChild.alt;
+				var color51 = pos51.firstElementChild.alt;
+			
+				//console.log(color60);
+				//console.log(color51);
+			
+				if(color60 == "Blue" && color51 == "Red" || king == "redKing" && color51 == "Blue"){
+					//console.log(color60);
+					//console.log(color51);
+					document.getElementById("pos42").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos42").setAttribute("ondrop", "drop(event)");
+				}/*else if(color60 == "Blue"){
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}else if(test60 == true && test51 == false){
+			
+				var color60 = pos60.firstElementChild.alt;
+			
+				if(color60 == "Blue" || king == "redKing"){
+					document.getElementById("pos51").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos51").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test60 == true && test53 == false){
+				var color60 = pos60.firstElementChild.alt;
+				
+				if(color60 == "Blue" || king == "redKing"){
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+		//legal moves from pos62
+		if(drag_rIndex == 8 && drag_cIndex == 6){
+			console.log("pos 62");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			
+			var pos62 = document.getElementById("pos62");
+			var pos55 = document.getElementById("pos55");
+			var pos48 = document.getElementById("pos48");
+			var pos53 = document.getElementById("pos53");
+			var pos44 = document.getElementById("pos44");
+			
+			var child62 = pos62.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			var child48 = pos48.firstElementChild;
+			var child53 = pos53.firstElementChild;	
+			var child44 = pos44.firstElementChild;
+			
+			var king = child62.className;
+
+			
+			var test62 = pos62.contains(child62);
+			var test55 = pos55.contains(child55);
+			var test48 = pos48.contains(child48);
+			var test53 = pos53.contains(child53);	
+			var test44 = pos44.contains(child44);
+
+			//console.log(test62);
+			//console.log(test10);
+			
+			if(test62 == true && test55 == true){
+			
+				var color62 = pos62.firstElementChild.alt;
+				var color55 = pos55.firstElementChild.alt;
+			
+				//console.log(color62);
+				//console.log(color55);
+			
+				if(color62 == "Blue" && color55 == "Red" || king == "redKing" && color55 == "Blue"){
+					//console.log(color62);
+					//console.log(color55);
+					document.getElementById("pos48").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos48").setAttribute("ondrop", "drop(event)");
+				}/*else if(color62 == "Blue"){
+					document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}
+			
+			if(test62 == true && test53 == true){
+			
+				var color62 = pos62.firstElementChild.alt;
+				var color53 = pos53.firstElementChild.alt;
+			
+				//console.log(color62);
+				//console.log(color53);
+			
+				if(color62 == "Blue" && color53 == "Red" || king == "redKing" && color53 == "Blue"){
+					//console.log(color62);
+					//console.log(color53);
+					document.getElementById("pos44").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos44").setAttribute("ondrop", "drop(event)");
+				}/*else if(color62 == "Blue"){
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}*/
+			
+			}
+			
+			if(test62 == true && test53 == false){
+				var color62 = pos62.firstElementChild.alt;
+				
+				if(color62 == "Blue" || king == "redKing"){
+					document.getElementById("pos53").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos53").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+			if(test62 == true && test55 == false){
+				var color62 = pos62.firstElementChild.alt;
+				
+				if(color62 == "Blue" || king == "redKing"){
+					document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+				}
+			}
+			
+		
+		}
+
+//legal moves from pos64
+		if(drag_rIndex == 8 && drag_cIndex == 8){
+			console.log("pos 64");
+			
+			var t = document.getElementById("board");
+			var trs = t.getElementsByTagName("tr");
+			var tds = null;
+
+			for (var i=0; i<trs.length; i++)
+			{
+				tds = trs[i].getElementsByTagName("td");
+				
+				for (var n=0; n<trs.length;n++)
+				{
+					tds[n].setAttribute("ondragover", " ");
+					tds[n].setAttribute("ondrop", " ");
+				}
+			}
+			
+			//var test = document.getElementById("pos55").hasChildNodes();
+			//console.log(test);
+			var pos64 = document.getElementById("pos64");
+			var pos55 = document.getElementById("pos55");
+			
+			var child64 = pos64.firstElementChild;
+			var child55 = pos55.firstElementChild;
+			
+			var king = child64.className;
+			
+			var test64 = pos64.contains(child64);
+			var test55 = pos55.contains(child55);
+			//console.log(test64);
+			//console.log(test55);
+			
+			if(test55 == true && test64 == true){
+			
+				var color64 = pos64.firstElementChild.alt;
+				var color55 = pos55.firstElementChild.alt;
+			
+				//console.log(color64);
+				//console.log(color55);
+			
+				if(color64=="Blue" && color55=="Red" || king == "redKing" && color55 == "Blue"){
+					//console.log(color64);
+					//console.log(color55);
+					document.getElementById("pos46").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos46").setAttribute("ondrop", "drop(event)");
+				}else if(color64=="Blue" || king == "redKing"){
+					document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+				}
+			
+			}else if(test55 == false && test64 == true){
+				var color64 = pos64.firstElementChild.alt;
+				
+				if(color64=="Blue" || king == "redKing"){
+					document.getElementById("pos55").setAttribute("ondragover", "allowDrop(event)");
+					document.getElementById("pos55").setAttribute("ondrop", "drop(event)");
+					/*document.getElementById("pos46").setAttribute("ondragover", " ");
+					document.getElementById("pos46").setAttribute("ondrop", " ");*/
+				}
+			}
+			
+		
+		}
+
+
+		
+		
+}
+	  
+
+
+function drop(ev)
+{
+    var id = ev.dataTransfer.getData("Text");
+    if (!$(ev.currentTarget).find("img")[0]){
+		ev.target.appendChild(document.getElementById(id));
+			
+			console.log("dropped");
+
+			//Row Index
+		drop_rIndex = ev.target.parentNode.rowIndex+1;
+	    console.log("Row index is: " + drop_rIndex);
+		
+		//Column Index
+		drop_cIndex = ev.target.cellIndex+1;
+		console.log("Cell index is: " + drop_cIndex);
+			console.log("indexes: " + drag_rIndex + " | " + drag_cIndex + " | " + drop_rIndex + " | " + drop_cIndex);
+			
+			
+			
+		/*KING*/
+		//blueKing
+		if(drop_rIndex == 1 && drop_cIndex == 1 || drop_rIndex == 1 && drop_cIndex == 3 || drop_rIndex == 1 && drop_cIndex == 5 || drop_rIndex == 1 && drop_cIndex == 7){
+			//console.log("drop row 1");
+			
+						
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			var pos1 = document.getElementById("pos1");
+			var pos3 = document.getElementById("pos3");
+			var pos5 = document.getElementById("pos5");
+			var pos7 = document.getElementById("pos7");
+			
+			var child1 = pos1.firstElementChild;
+			var child3 = pos3.firstElementChild;
+			var child5 = pos5.firstElementChild;
+			var child7 = pos7.firstElementChild;
+			
+			var test1 = pos1.contains(child1);
+			var test3 = pos3.contains(child3);
+			var test5 = pos5.contains(child5);
+			var test7 = pos7.contains(child7);
+			
+			
+			
+			if(test1 == true){
+				//console.log(test1);
+				var color1 = pos1.firstElementChild.alt;
+				
+				if(color1== "Blue"){
+					child1.className="blueKing";
+					child1.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test3 == true){
+				//console.log(test3);
+				var color3 = pos3.firstElementChild.alt;
+				
+				if(color3 == "Blue"){
+					child3.className="blueKing";
+					child3.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test5 == true){
+				//console.log(test5);
+				var color5 = pos5.firstElementChild.alt;
+				
+				if(color5 == "Blue"){
+					child5.className="blueKing";
+					child5.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test7 == true){
+				//console.log(test7);
+				var color7 = pos7.firstElementChild.alt;
+				
+				if(color7 == "Blue"){
+					child7.className="blueKing";
+					child7.style.border = "5px solid gold"
+				}
+			}
+		}
+		//redKing
+		if(drop_rIndex == 8 && drop_cIndex == 2 || drop_rIndex == 8 && drop_cIndex == 4 || drop_rIndex == 8 && drop_cIndex == 6 || drop_rIndex == 8 && drop_cIndex == 8){
+			//console.log("drop row 8");
+			
+						
+			//var test = document.getElementById("pos10").hasChildNodes();
+			//console.log(test);
+			var pos58 = document.getElementById("pos58");
+			var pos60 = document.getElementById("pos60");
+			var pos62 = document.getElementById("pos62");
+			var pos64 = document.getElementById("pos64");
+			
+			var child58 = pos58.firstElementChild;
+			var child60 = pos60.firstElementChild;
+			var child62 = pos62.firstElementChild;
+			var child64 = pos64.firstElementChild;
+			
+			var test58 = pos58.contains(child58);
+			var test60 = pos60.contains(child60);
+			var test62 = pos62.contains(child62);
+			var test64 = pos64.contains(child64);
+			
+			
+			
+			if(test58 == true){
+				//console.log(test58);
+				var color58 = pos58.firstElementChild.alt;
+				
+				if(color58== "Red"){
+					child58.className="redKing";
+					child58.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test60 == true){
+				//console.log(test60);
+				var color60 = pos60.firstElementChild.alt;
+				
+				if(color60 == "Red"){
+					child60.className="redKing";
+					child60.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test62 == true){
+				//console.log(test62);
+				var color62 = pos62.firstElementChild.alt;
+				
+				if(color62 == "Red"){
+					child62.className="redKing";
+					child62.style.border = "5px solid gold"
+				}
+			}
+			
+			if(test64 == true){
+				//console.log(test64);
+				var color64 = pos64.firstElementChild.alt;
+				
+				if(color64 == "Red"){
+					child64.className="redKing";
+					child64.style.border = "5px solid gold"
+				}
+			}
+		}
+			
+			if(drag_rIndex == 1 && drag_cIndex == 3 && drop_rIndex == 3 && drop_cIndex == 1 || drag_rIndex == 3 && drag_cIndex == 1 && drop_rIndex == 1 && drop_cIndex == 3 || drag_rIndex == 1 && drag_cIndex == 1 && drop_rIndex == 3 && drop_cIndex == 3 || drag_rIndex == 3 && drag_cIndex == 3 && drop_rIndex == 1 && drop_cIndex == 1){
+			var pos10 = document.getElementById("pos10");
+			var x = pos10.firstElementChild.alt;
+			
+			while (pos10.firstChild) {
+				pos10.removeChild(pos10.firstChild);			
+			}
+			alert(x + " removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+
+			}else if(drag_rIndex == 1 && drag_cIndex == 3 && drop_rIndex == 3 && drop_cIndex == 5 || drag_rIndex == 3 && drag_cIndex == 5 && drop_rIndex == 1 && drop_cIndex == 3 || drag_rIndex == 1 && drag_cIndex == 5 && drop_rIndex == 3 && drop_cIndex == 3 || drag_rIndex == 3 && drag_cIndex == 3 && drop_rIndex == 1 && drop_cIndex == 5){
+			var pos12 = document.getElementById("pos12");
+			var x = pos12.firstElementChild.alt;
+
+			while (pos12.firstChild) {
+				pos12.removeChild(pos12.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 1 && drag_cIndex == 5 && drop_rIndex == 3 && drop_cIndex == 7 || drag_rIndex == 3 && drag_cIndex == 7 && drop_rIndex == 1 && drop_cIndex == 5 || drag_rIndex == 1 && drag_cIndex == 7 && drop_rIndex == 3 && drop_cIndex == 5 || drag_rIndex == 3 && drag_cIndex == 5 && drop_rIndex == 1 && drop_cIndex == 7){
+			var pos14 = document.getElementById("pos14");
+			var x = pos14.firstElementChild.alt;
+			while (pos14.firstChild) {
+				pos14.removeChild(pos14.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 2 && drag_cIndex == 2 && drop_rIndex == 4 && drop_cIndex == 4 || drag_rIndex == 4 && drag_cIndex == 4 && drop_rIndex == 2 && drop_cIndex == 2 || drag_rIndex == 2 && drag_cIndex == 4 && drop_rIndex == 4 && drop_cIndex == 2 || drag_rIndex == 4 && drag_cIndex == 2 && drop_rIndex == 2 && drop_cIndex == 4){
+			var pos19 = document.getElementById("pos19");
+			var x = pos19.firstElementChild.alt;
+			
+			while (pos19.firstChild) {
+				pos19.removeChild(pos19.firstChild);
+			}
+			alert(x+" removed!");
+
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 2 && drag_cIndex == 6 && drop_rIndex == 4 && drop_cIndex == 4 || drag_rIndex == 4 && drag_cIndex == 4 && drop_rIndex == 2 && drop_cIndex == 6 || drag_rIndex == 2 && drag_cIndex == 4 && drop_rIndex == 4 && drop_cIndex == 6 || drag_rIndex == 4 && drag_cIndex == 6 && drop_rIndex == 2 && drop_cIndex == 4){
+			var pos21 = document.getElementById("pos21");
+			var x = pos21.firstElementChild.alt;
+			while (pos21.firstChild) {
+				pos21.removeChild(pos21.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 2 && drag_cIndex == 6 && drop_rIndex == 4 && drop_cIndex == 8 || drag_rIndex == 4 && drag_cIndex == 8 && drop_rIndex == 2 && drop_cIndex == 6 || drag_rIndex == 2 && drag_cIndex == 8 && drop_rIndex == 4 && drop_cIndex == 6 || drag_rIndex == 4 && drag_cIndex == 6 && drop_rIndex == 2 && drop_cIndex == 8){
+			var pos23 = document.getElementById("pos23");
+			var x = pos23.firstElementChild.alt;
+			while (pos23.firstChild) {
+				pos23.removeChild(pos23.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			
+			
+			}else if(drag_rIndex == 3 && drag_cIndex == 1 && drop_rIndex == 5 && drop_cIndex == 3 || drag_rIndex == 3 && drag_cIndex == 3 && drop_rIndex == 5 && drop_cIndex == 1 || drag_rIndex == 5 && drag_cIndex == 3 && drop_rIndex == 3 && drop_cIndex == 1 || drag_rIndex == 5 && drag_cIndex == 1 && drop_rIndex == 3 && drop_cIndex == 3){
+			var pos26 = document.getElementById("pos26");
+			var x = pos26.firstElementChild.alt;
+			
+			while (pos26.firstChild) {
+				pos26.removeChild(pos26.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 3 && drag_cIndex == 3 && drop_rIndex == 5 && drop_cIndex == 5 || drag_rIndex == 5 && drag_cIndex == 5 && drop_rIndex == 3 && drop_cIndex == 3 || drag_rIndex == 3 && drag_cIndex == 5 && drop_rIndex == 5 && drop_cIndex == 3 || drag_rIndex == 5 && drag_cIndex == 3 && drop_rIndex == 3 && drop_cIndex == 5){
+			var pos28 = document.getElementById("pos28");
+			var x = pos28.firstElementChild.alt;
+			
+			while (pos28.firstChild) {
+				pos28.removeChild(pos28.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 3 && drag_cIndex == 5 && drop_rIndex == 5 && drop_cIndex == 7 || drag_rIndex == 5 && drag_cIndex == 7 && drop_rIndex == 3 && drop_cIndex == 5 || drag_rIndex == 5 && drag_cIndex == 5 && drop_rIndex == 3 && drop_cIndex == 7 || drag_rIndex == 3 && drag_cIndex == 7 && drop_rIndex == 5 && drop_cIndex == 5){
+			var pos30 = document.getElementById("pos30");
+			var x = pos30.firstElementChild.alt;
+			
+			while (pos30.firstChild) {
+				pos30.removeChild(pos30.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 6 && drag_cIndex == 4 && drop_rIndex == 4 && drop_cIndex == 2 || drag_rIndex == 4 && drag_cIndex == 2 && drop_rIndex == 6 && drop_cIndex == 4 || drag_rIndex == 6 && drag_cIndex == 2 && drop_rIndex == 4 && drop_cIndex == 4 || drag_rIndex == 4 && drag_cIndex == 4 && drop_rIndex == 6 && drop_cIndex == 2){
+			var pos35 = document.getElementById("pos35");
+			var x = pos35.firstElementChild.alt;
+			
+			while (pos35.firstChild) {
+				pos35.removeChild(pos35.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 6 && drag_cIndex == 4 && drop_rIndex == 4 && drop_cIndex == 6 || drag_rIndex == 4 && drag_cIndex == 6 && drop_rIndex == 6 && drop_cIndex == 4 || drag_rIndex == 6 && drag_cIndex == 6 && drop_rIndex == 4 && drop_cIndex == 4 || drag_rIndex == 4 && drag_cIndex == 4 && drop_rIndex == 6 && drop_cIndex == 6){
+			var pos37 = document.getElementById("pos37");
+			var x = pos37.firstElementChild.alt;
+			while (pos37.firstChild) {
+				pos37.removeChild(pos37.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 6 && drag_cIndex == 6 && drop_rIndex == 4 && drop_cIndex == 8 || drag_rIndex == 4 && drag_cIndex == 8 && drop_rIndex == 6 && drop_cIndex == 6 || drag_rIndex == 6 && drag_cIndex == 8 && drop_rIndex == 4 && drop_cIndex == 6 || drag_rIndex == 4 && drag_cIndex == 6 && drop_rIndex == 6 && drop_cIndex == 8){
+			var pos39 = document.getElementById("pos39");
+			var x = pos39.firstElementChild.alt;
+			
+			while (pos39.firstChild) {
+				pos39.removeChild(pos39.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 7 && drag_cIndex == 1 && drop_rIndex == 5 && drop_cIndex == 3 || drag_rIndex == 5 && drag_cIndex == 3 && drop_rIndex == 7 && drop_cIndex == 1 || drag_rIndex == 7 && drag_cIndex == 3 && drop_rIndex == 5 && drop_cIndex == 1 || drag_rIndex == 5 && drag_cIndex == 1 && drop_rIndex == 7 && drop_cIndex == 3){
+			var pos42 = document.getElementById("pos42");
+			var x = pos42.firstElementChild.alt;
+			
+			while (pos42.firstChild) {
+				pos42.removeChild(pos42.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			
+			}else if(drag_rIndex == 7 && drag_cIndex == 3 && drop_rIndex == 5 && drop_cIndex == 5 || drag_rIndex == 5 && drag_cIndex == 5 && drop_rIndex == 7 && drop_cIndex == 3 || drag_rIndex == 7 && drag_cIndex == 5 && drop_rIndex == 5 && drop_cIndex == 3 || drag_rIndex == 5 && drag_cIndex == 3 && drop_rIndex == 7 && drop_cIndex == 5){
+			var pos44 = document.getElementById("pos44");
+			var x = pos44.firstElementChild.alt;
+			while (pos44.firstChild) {
+				pos44.removeChild(pos44.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 7 && drag_cIndex == 5 && drop_rIndex == 5 && drop_cIndex == 7 || drag_rIndex == 5 && drag_cIndex == 7 && drop_rIndex == 7 && drop_cIndex == 5 || drag_rIndex == 7 && drag_cIndex == 7 && drop_rIndex == 5 && drop_cIndex == 5 || drag_rIndex == 5 && drag_cIndex == 5 && drop_rIndex == 7 && drop_cIndex == 7){
+			var pos46 = document.getElementById("pos46");
+			var x = pos46.firstElementChild.alt;
+			while (pos46.firstChild) {
+				pos46.removeChild(pos46.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 8 && drag_cIndex == 2 && drop_rIndex == 6 && drop_cIndex == 4 || drag_rIndex == 6 && drag_cIndex == 4 && drop_rIndex == 8 && drop_cIndex == 2 || drag_rIndex == 8 && drag_cIndex == 4 && drop_rIndex == 6 && drop_cIndex == 2 || drag_rIndex == 6 && drag_cIndex == 2 && drop_rIndex == 8 && drop_cIndex == 4){
+			var pos51 = document.getElementById("pos51");
+			var x = pos51.firstElementChild.alt;
+			while (pos51.firstChild) {
+				pos51.removeChild(pos51.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 8 && drag_cIndex == 4 && drop_rIndex == 6 && drop_cIndex == 6 || drag_rIndex == 6 && drag_cIndex == 6 && drop_rIndex == 8 && drop_cIndex == 4 || drag_rIndex == 8 && drag_cIndex == 6 && drop_rIndex == 6 && drop_cIndex == 4 || drag_rIndex == 6 && drag_cIndex == 4 && drop_rIndex == 8 && drop_cIndex == 6){
+			var pos53 = document.getElementById("pos53");
+			var x = pos53.firstElementChild.alt;
+			while (pos53.firstChild) {
+				pos53.removeChild(pos53.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}else if(drag_rIndex == 8 && drag_cIndex == 6 && drop_rIndex == 6 && drop_cIndex == 8 || drag_rIndex == 6 && drag_cIndex == 8 && drop_rIndex == 8 && drop_cIndex == 6 || drag_rIndex == 8 && drag_cIndex == 8 && drop_rIndex == 6 && drop_cIndex == 6 || drag_rIndex == 6 && drag_cIndex == 6 && drop_rIndex == 8 && drop_cIndex == 8){
+			var pos55 = document.getElementById("pos55");
+			var x = pos55.firstElementChild.alt;
+			while (pos55.firstChild) {
+				pos55.removeChild(pos55.firstChild);
+			}
+			alert(x+" removed!");
+			if(x=="Red"){
+				console.log("red: "+redCnt);
+				redCnt++;
+				console.log("red: "+redCnt);
+				if(redCnt == 12){
+					alert("Blue Wins!");
+					location.reload();
+				}
+			}else if(x=="Blue"){
+				console.log("Blue: "+blueCnt);
+				blueCnt++;
+				console.log("Blue: "+blueCnt);
+				if(blueCnt == 12){
+					alert("Red Wins!");
+					location.reload();
+				}
+			}
+			
+			}
+
+
+
+
+
+	}
+    ev.preventDefault();
+	
+
+	//return drop_rIndex;
+	//return drop_cIndex;
+}
+
+function allowDrop(ev)
+{
+    ev.preventDefault();
+
+}
+
+      </script> 
+	
+	</body>
+	
+</html>
